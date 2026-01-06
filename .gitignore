@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+
+# ML Models (optional – keep only final)
+*.h5
+*.keras
+
+# Datasets
+dataset/
+dataset_balanced/
+dataset_clean/
+
+# Node
+node_modules/
+
+# System
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
