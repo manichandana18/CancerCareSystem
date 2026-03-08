@@ -61,6 +61,40 @@ BONE CANCER/
    python test_prediction.py dataset\valid\tibia_osteosarcoma_18_PNG.rf.8356edeaa98cc538f5512fe6e4e7f61d.jpg
    ```
 
+### Method 1B: Test the Organ-Aware Multi-Stage Pipeline (/predict/auto)
+
+This endpoint performs:
+
+Stage 1: Organ Classification (Bone vs Lung)
+
+Stage 2: Organ-specific prediction
+
+Stage 3: Organ-aware explainability
+
+1. **Make sure backend server is running** (same as above)
+
+2. **In a NEW terminal**, call the organ-aware test client:
+   ```bash
+   cd backend
+   venv\Scripts\activate
+   python test_auto_predict.py sample_xray.jpg
+   ```
+
+3. **Expected output fields** include:
+
+   - `organ`, `organ_confidence`
+   - `diagnosis`, `diagnosis_confidence`
+   - `explainability`
+
+4. **Grad-CAM setup note (Lung)**
+
+   Grad-CAM requires a lung CNN model file. Configure one of these:
+
+   - Set env var `LUNG_CNN_MODEL_PATH` to a `.h5` model file path
+   - Or place a model at `backend\models\lung_cnn_model.h5`
+
+   If the lung model is not configured, the API will still work, but `explainability` for lung will return an `error` explaining what is missing.
+
 ### Method 2: Using Java Frontend
 
 1. **Make sure backend server is running** (same as above)

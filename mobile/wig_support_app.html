@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CancerCare AI - Wig Support & Donation</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --pink: #ec4899;
+            --purple: #8b5cf6;
+            --light: #f9fafb;
+            --dark: #111827;
+            --border: #e5e7eb;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .mobile-container {
+            width: 100%;
+            max-width: 450px;
+            height: 850px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .screen {
+            display: none;
+            padding: 20px;
+            height: 100%;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--border);
+        }
+        
+        .nav-item.active {
+            color: var(--secondary);
+        }
+        
+        .nav-item i {
+            font-size: 1.2em;
+        }
+        
+        .nav-item span {
+            font-size: 0.8em;
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .app-header h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        
+        .app-header p {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--pink);
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--pink);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.8em;
+            color: var(--border);
+        }
+        
+        .wig-card {
+            background: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .wig-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .wig-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .wig-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .wig-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .wig-info {
+            padding: 15px;
+        }
+        
+        .wig-name {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .wig-description {
+            font-size: 0.9em;
+            color: var(--border);
+            margin-bottom: 10px;
+        }
+        
+        .wig-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .price-original {
+            text-decoration: line-through;
+            color: var(--border);
+            font-size: 0.9em;
+        }
+        
+        .price-current {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--pink);
+        }
+        
+        .wig-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+            border: 2px solid var(--border);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .donation-card {
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .donation-amount {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .donation-goal {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: white;
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+        
+        .donation-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .donation-btn {
+            padding: 15px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .donation-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .donation-btn.selected {
+            background: white;
+            color: var(--accent);
+        }
+        
+        .patient-story {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--pink);
+        }
+        
+        .patient-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .patient-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .patient-story-text {
+            color: var(--border);
+            font-size: 0.9em;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        
+        .patient-progress {
+            font-size: 0.8em;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .government-badge {
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .government-badge i {
+            font-size: 1.2em;
+        }
+        
+        .screen-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .virtual-try-on {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .try-on-area {
+            width: 150px;
+            height: 150px;
+            background: white;
+            border: 2px dashed var(--border);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .try-on-area i {
+            font-size: 3em;
+            color: var(--border);
+        }
+        
+        .size-guide {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .size-option {
+            padding: 15px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .size-option:hover {
+            border-color: var(--secondary);
+        }
+        
+        .size-option.selected {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        .filter-tab {
+            padding: 10px 20px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+        
+        .filter-tab:hover {
+            border-color: var(--secondary);
+        }
+        
+        .filter-tab.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        .impact-metric {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .impact-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .impact-text {
+            flex: 1;
+        }
+        
+        .impact-number {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .impact-label {
+            font-size: 0.8em;
+            color: var(--border);
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Wig Shop Screen -->
+        <div class="screen active" id="wigShopScreen">
+            <div class="app-header">
+                <h2>🎗️ Wig Support Center</h2>
+                <p>Restoring confidence, one wig at a time</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">1,247</div>
+                    <div class="stat-label">Wigs Donated</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$89,432</div>
+                    <div class="stat-label">Funds Raised</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">523</div>
+                    <div class="stat-label">Patients Helped</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfaction</div>
+                </div>
+            </div>
+            
+            <div class="filter-tabs">
+                <div class="filter-tab active" onclick="filterWigs('all')">All Wigs</div>
+                <div class="filter-tab" onclick="filterWigs('short')">Short</div>
+                <div class="filter-tab" onclick="filterWigs('long')">Long</div>
+                <div class="filter-tab" onclick="filterWigs('curly')">Curly</div>
+                <div class="filter-tab" onclick="filterWigs('straight')">Straight</div>
+                <div class="filter-tab" onclick="filterWigs('donated')">Donated</div>
+            </div>
+            
+            <div style="padding-bottom: 80px;">
+                <div class="wig-card">
+                    <div class="wig-image">
+                        <div class="wig-badge">70% OFF</div>
+                        <i class="fas fa-user" style="font-size: 4em; color: white;"></i>
+                    </div>
+                    <div class="wig-info">
+                        <div class="wig-name">Natural Wave - Medium Brown</div>
+                        <div class="wig-description">Premium synthetic wig, natural look</div>
+                        <div class="wig-price">
+                            <span class="price-original">$299</span>
+                            <span class="price-current">$89</span>
+                        </div>
+                        <div class="wig-actions">
+                            <button class="btn btn-primary" onclick="tryVirtualOn('wave-brown')">
+                                <i class="fas fa-camera"></i> Try On
+                            </button>
+                            <button class="btn btn-secondary" onclick="viewWigDetails('wave-brown')">
+                                <i class="fas fa-info"></i> Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wig-card">
+                    <div class="wig-image">
+                        <div class="wig-badge">DONATED</div>
+                        <i class="fas fa-user" style="font-size: 4em; color: white;"></i>
+                    </div>
+                    <div class="wig-info">
+                        <div class="wig-name">Elegant Curls - Black</div>
+                        <div class="wig-description">Gently donated, excellent condition</div>
+                        <div class="wig-price">
+                            <span class="price-original">$199</span>
+                            <span class="price-current">FREE</span>
+                        </div>
+                        <div class="wig-actions">
+                            <button class="btn btn-primary" onclick="applyForDonated('curls-black')">
+                                <i class="fas fa-heart"></i> Apply
+                            </button>
+                            <button class="btn btn-secondary" onclick="viewWigDetails('curls-black')">
+                                <i class="fas fa-info"></i> Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="wig-card">
+                    <div class="wig-image">
+                        <div class="wig-badge">NEW</div>
+                        <i class="fas fa-user" style="font-size: 4em; color: white;"></i>
+                    </div>
+                    <div class="wig-info">
+                        <div class="wig-name">Sleek Straight - Blonde</div>
+                        <div class="wig-description">Human hair, premium quality</div>
+                        <div class="wig-price">
+                            <span class="price-original">$599</span>
+                            <span class="price-current">$179</span>
+                        </div>
+                        <div class="wig-actions">
+                            <button class="btn btn-primary" onclick="tryVirtualOn('straight-blonde')">
+                                <i class="fas fa-camera"></i> Try On
+                            </button>
+                            <button class="btn btn-secondary" onclick="viewWigDetails('straight-blonde')">
+                                <i class="fas fa-info"></i> Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Donation Screen -->
+        <div class="screen" id="donationScreen">
+            <h2 class="screen-title">💝 Support Cancer Patients</h2>
+            
+            <div class="government-badge">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                    <div style="font-weight: 600;">Government Audited</div>
+                    <div style="font-size: 0.8em; opacity: 0.9;">100% transparent fund management</div>
+                </div>
+            </div>
+            
+            <div class="donation-card">
+                <div class="donation-amount">$45,678</div>
+                <div class="donation-goal">of $50,000 goal</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 91%;"></div>
+                </div>
+                <div style="font-size: 0.9em;">234 donors • 18 days left</div>
+            </div>
+            
+            <div class="donation-options">
+                <button class="donation-btn" onclick="selectDonation(25)">$25</button>
+                <button class="donation-btn selected" onclick="selectDonation(50)">$50</button>
+                <button class="donation-btn" onclick="selectDonation(100)">$100</button>
+                <button class="donation-btn" onclick="selectDonation(250)">$250</button>
+                <button class="donation-btn" onclick="selectDonation(500)">$500</button>
+                <button class="donation-btn" onclick="selectDonation(0)">Other</button>
+            </div>
+            
+            <div class="form-group">
+                <label>Custom Amount</label>
+                <input type="number" placeholder="Enter amount" id="customAmount">
+            </div>
+            
+            <div class="form-group">
+                <label>Dedication (Optional)</label>
+                <textarea placeholder="In memory of... or For someone fighting..." rows="3"></textarea>
+            </div>
+            
+            <button class="btn btn-primary" onclick="processDonation()">
+                <i class="fas fa-heart"></i> Donate Now
+            </button>
+            
+            <div style="margin-top: 30px; padding-bottom: 80px;">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Recent Donors</h3>
+                
+                <div class="impact-metric">
+                    <div class="impact-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="impact-text">
+                        <div class="impact-number">Sarah M.</div>
+                        <div class="impact-label">Donated $100 - 2 hours ago</div>
+                    </div>
+                </div>
+                
+                <div class="impact-metric">
+                    <div class="impact-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="impact-text">
+                        <div class="impact-number">Johnson Family</div>
+                        <div class="impact-label">Donated $250 - 5 hours ago</div>
+                    </div>
+                </div>
+                
+                <div class="impact-metric">
+                    <div class="impact-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="impact-text">
+                        <div class="impact-number">ABC Corp</div>
+                        <div class="impact-label">Donated $500 - 1 day ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Virtual Try-On Screen -->
+        <div class="screen" id="virtualTryOnScreen">
+            <h2 class="screen-title">📸 Virtual Try-On</h2>
+            
+            <div class="virtual-try-on">
+                <div class="try-on-area" onclick="startCamera()">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <p style="color: var(--border); margin-bottom: 15px;">Tap to start camera</p>
+                <button class="btn btn-primary" onclick="startCamera()">
+                    <i class="fas fa-camera"></i> Start Camera
+                </button>
+            </div>
+            
+            <div class="size-guide">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Head Size Guide</h3>
+                <div class="size-option" onclick="selectSize(this, 'petite')">
+                    <div style="font-weight: 600;">Petite</div>
+                    <div style="font-size: 0.8em; color: var(--border);">51-53cm</div>
+                </div>
+                <div class="size-option selected" onclick="selectSize(this, 'average')">
+                    <div style="font-weight: 600;">Average</div>
+                    <div style="font-size: 0.8em; color: var(--border);">54-56cm</div>
+                </div>
+                <div class="size-option" onclick="selectSize(this, 'large')">
+                    <div style="font-weight: 600;">Large</div>
+                    <div style="font-size: 0.8em; color: var(--border);">57-59cm</div>
+                </div>
+                <div class="size-option" onclick="selectSize(this, 'xl')">
+                    <div style="font-weight: 600;">XL</div>
+                    <div style="font-size: 0.8em; color: var(--border);">60-62cm</div>
+                </div>
+            </div>
+            
+            <div style="padding-bottom: 80px;">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Color Matching</h3>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                    <div style="width: 100%; height: 50px; background: #2c1810; border-radius: 10px; cursor: pointer;" onclick="selectHairColor('#2c1810')"></div>
+                    <div style="width: 100%; height: 50px; background: #4a2c2a; border-radius: 10px; cursor: pointer;" onclick="selectHairColor('#4a2c2a')"></div>
+                    <div style="width: 100%; height: 50px; background: #6b4423; border-radius: 10px; cursor: pointer;" onclick="selectHairColor('#6b4423')"></div>
+                    <div style="width: 100%; height: 50px; background: #8b5a3c; border-radius: 10px; cursor: pointer;" onclick="selectHairColor('#8b5a3c')"></div>
+                    <div style="width: 100%; height: 50px; background: #d2b48c; border-radius: 10px; cursor: pointer;" onclick="selectHairColor('#d2b48c')"></div>
+                    <div style="width: 100%; height: 50px; background: #f4e4c1; border-radius: 10px; cursor: pointer;" onclick="selectHairColor('#f4e4c1')"></div>
+                    <div style="width: 100%; height: 50px; background: #e8dcc6; border-radius: 10px; cursor: pointer;" onclick="selectHairColor('#e8dcc6')"></div>
+                    <div style="width: 100%; height: 50px; background: #c8b88b; border-radius: 10px; cursor: pointer;" onclick="selectHairColor('#c8b88b')"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Patient Stories Screen -->
+        <div class="screen" id="patientStoriesScreen">
+            <h2 class="screen-title">👥 Patient Stories</h2>
+            
+            <div style="padding-bottom: 80px;">
+                <div class="patient-story">
+                    <div class="patient-avatar">MJ</div>
+                    <div class="patient-name">Maria Johnson</div>
+                    <div class="patient-story-text">
+                        "Losing my hair was devastating, but getting a beautiful wig through this program helped me feel like myself again. I could go to work and social events without feeling self-conscious."
+                    </div>
+                    <div class="patient-progress">
+                        <i class="fas fa-heart"></i> Received wig • 3 months cancer-free
+                    </div>
+                </div>
+                
+                <div class="patient-story">
+                    <div class="patient-avatar">SC</div>
+                    <div class="patient-name">Sarah Chen</div>
+                    <div class="patient-story-text">
+                        "As a single mom, I couldn't afford a quality wig. The donation program gave me a beautiful human hair wig that made me feel confident during my chemotherapy treatments."
+                    </div>
+                    <div class="patient-progress">
+                        <i class="fas fa-heart"></i> Donated wig received • Treatment ongoing
+                    </div>
+                </div>
+                
+                <div class="patient-story">
+                    <div class="patient-avatar">RP</div>
+                    <div class="patient-name">Robert Park</div>
+                    <div class="patient-story-text">
+                        "The virtual try-on feature was amazing! I could see how different styles looked before choosing. The staff was so helpful and understanding."
+                    </div>
+                    <div class="patient-progress">
+                        <i class="fas fa-heart"></i> Found perfect match • Surgery successful
+                    </div>
+                </div>
+                
+                <div class="patient-story">
+                    <div class="patient-avatar">AL</div>
+                    <div class="patient-name">Amanda Lee</div>
+                    <div class="patient-story-text">
+                        "I donated my hair after my aunt passed away from cancer. Knowing it helped someone else feel beautiful during their journey brings me comfort."
+                    </div>
+                    <div class="patient-progress">
+                        <i class="fas fa-heart"></i> Hair donor • Honoring aunt's memory
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="showScreen('wigShopScreen')">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('donationScreen')">
+                <i class="fas fa-heart"></i>
+                <span>Donate</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('virtualTryOnScreen')">
+                <i class="fas fa-camera"></i>
+                <span>Try On</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('patientStoriesScreen')">
+                <i class="fas fa-users"></i>
+                <span>Stories</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let selectedDonation = 50;
+        let selectedSize = 'average';
+        let selectedHairColor = '#8b5a3c';
+        
+        // Screen navigation
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const screenMap = {
+                'wigShopScreen': 0,
+                'donationScreen': 1,
+                'virtualTryOnScreen': 2,
+                'patientStoriesScreen': 3
+            };
+            
+            if (screenMap[screenId] !== undefined) {
+                document.querySelectorAll('.nav-item')[screenMap[screenId]].classList.add('active');
+            }
+        }
+        
+        // Wig filtering
+        function filterWigs(category) {
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            console.log('Filtering wigs by:', category);
+            // In real app, this would filter the wig display
+        }
+        
+        // Virtual try-on
+        function tryVirtualOn(wigId) {
+            showScreen('virtualTryOnScreen');
+            console.log('Virtual try-on for wig:', wigId);
+        }
+        
+        function viewWigDetails(wigId) {
+            alert('Opening detailed view for wig: ' + wigId);
+        }
+        
+        function applyForDonated(wigId) {
+            alert('Applying for donated wig: ' + wigId + '\n\nApplication will be reviewed based on need and availability.');
+        }
+        
+        // Donation functions
+        function selectDonation(amount) {
+            selectedDonation = amount;
+            document.querySelectorAll('.donation-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+            
+            if (amount === 0) {
+                document.getElementById('customAmount').focus();
+            }
+        }
+        
+        function processDonation() {
+            const customAmount = document.getElementById('customAmount').value;
+            const finalAmount = customAmount || selectedDonation;
+            
+            if (finalAmount <= 0) {
+                alert('Please enter a valid donation amount');
+                return;
+            }
+            
+            alert(`Thank you for your donation of $${finalAmount}!\n\nYour contribution will help provide wigs to cancer patients in need.\n\nGovernment audited • 100% transparent`);
+        }
+        
+        // Virtual try-on functions
+        function startCamera() {
+            alert('Camera would open here for virtual try-on.\n\nIn real app, this would:\n• Access device camera\n• Show AR wig overlay\n• Allow real-time preview\n• Capture and save photos');
+        }
+        
+        function selectSize(element, size) {
+            selectedSize = size;
+            document.querySelectorAll('.size-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+        
+        function selectHairColor(color) {
+            selectedHairColor = color;
+            console.log('Hair color selected:', color);
+        }
+        
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Wig Support App Ready!');
+            
+            // Animate progress bars
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach(bar => {
+                    bar.style.width = bar.style.width;
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>

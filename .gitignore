@@ -4,23 +4,76 @@ __pycache__/
 *.pyo
 *.pyd
 .env
+.env.local
+.env.production
 .venv/
+venv/
 
-# ML Models (optional – keep only final)
+# ML Models (large files)
 *.h5
 *.keras
+*.pkl
+*.joblib
 
-# Datasets
+# Datasets & Training Data
 dataset/
 dataset_balanced/
 dataset_clean/
+organ_dataset/
+blood_dataset/
+blood_dataset_real/
+BoneCancer/data/
+BoneCancer/models/
+BoneCancer/results/
+LungCancer/data/
+LungCancer/models/
+LungCancer/results/
+backend/lung_train/
+backend/lung_val/
+backend/organ_dataset/
+backend/blood_dataset/
+backend/blood_dataset_real/
+backend/dataset/
+
+# Database
+*.db
+*.db-shm
+*.db-wal
 
 # Node
 node_modules/
+dist/
+
+# Build artifacts
+*.log
+lint_errors.txt
+lint_final.txt
+backend/backend_emergency.log
+backend/backend_log.txt
+server_log.txt
+backend/server_log.txt
+
+# Large test outputs
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!tsconfig.app.json
+!tsconfig.node.json
+!eslint.config.js
+!exercises.json
 
 # System
 .DS_Store
 Thumbs.db
 
-# VS Code
+# IDE
 .vscode/
+.idea/
+
+# Test outputs
+auth_test_output.txt
+
+# Temp & generated
+start_test.py
+backend/start_test.py

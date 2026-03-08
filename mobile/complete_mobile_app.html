@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CancerCare AI - Complete Mobile App</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --light: #f9fafb;
+            --dark: #111827;
+            --border: #e5e7eb;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .mobile-container {
+            width: 100%;
+            max-width: 400px;
+            height: 800px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .screen {
+            display: none;
+            padding: 20px;
+            height: 100%;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--border);
+        }
+        
+        .nav-item.active {
+            color: var(--secondary);
+        }
+        
+        .nav-item i {
+            font-size: 1.2em;
+        }
+        
+        .nav-item span {
+            font-size: 0.8em;
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .welcome-text h2 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        
+        .welcome-text p {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+        
+        .health-score {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .score-number {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .score-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .action-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+        }
+        
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+        }
+        
+        .action-icon i {
+            font-size: 1.5em;
+            color: white;
+        }
+        
+        .action-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .action-subtitle {
+            font-size: 0.8em;
+            color: var(--border);
+        }
+        
+        .upload-area {
+            background: var(--light);
+            border: 2px dashed var(--border);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--secondary);
+            background: #f0f9ff;
+        }
+        
+        .upload-icon {
+            font-size: 3em;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .mood-tracker {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        
+        .mood-option {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mood-option:hover {
+            transform: scale(1.2);
+        }
+        
+        .mood-option.selected {
+            transform: scale(1.2);
+        }
+        
+        .mood-emoji {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+        
+        .mood-label {
+            font-size: 0.8em;
+            color: var(--border);
+        }
+        
+        .record-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .record-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .record-date {
+            font-size: 0.8em;
+            color: var(--border);
+        }
+        
+        .appointment-card {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .appointment-time {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        
+        .appointment-doctor {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .appointment-type {
+            font-size: 0.8em;
+            color: var(--border);
+        }
+        
+        .notification-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .notification-icon.urgent {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        
+        .notification-icon.info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--secondary);
+        }
+        
+        .notification-icon.success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent);
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .notification-time {
+            font-size: 0.8em;
+            color: var(--border);
+        }
+        
+        .settings-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .settings-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .settings-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .settings-title {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 25px;
+            background: var(--border);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: var(--accent);
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(25px);
+        }
+        
+        .screen-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Dashboard Screen -->
+        <div class="screen active" id="dashboardScreen">
+            <div class="app-header">
+                <div class="user-info">
+                    <div class="user-avatar">JD</div>
+                    <div class="welcome-text">
+                        <h2>Welcome back, John!</h2>
+                        <p>How are you feeling today?</p>
+                    </div>
+                </div>
+                <div class="health-score">
+                    <div class="score-number">92</div>
+                    <div class="score-label">Health Score</div>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <div class="action-card" onclick="showScreen('detectionScreen')">
+                    <div class="action-icon">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <div class="action-title">Scan</div>
+                    <div class="action-subtitle">Upload medical image</div>
+                </div>
+                
+                <div class="action-card" onclick="showScreen('mentalHealthScreen')">
+                    <div class="action-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="action-title">Mental Health</div>
+                    <div class="action-subtitle">Track your mood</div>
+                </div>
+                
+                <div class="action-card" onclick="showScreen('recordsScreen')">
+                    <div class="action-icon">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <div class="action-title">Records</div>
+                    <div class="action-subtitle">View history</div>
+                </div>
+                
+                <div class="action-card" onclick="showScreen('appointmentsScreen')">
+                    <div class="action-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="action-title">Appointments</div>
+                    <div class="action-subtitle">Schedule visits</div>
+                </div>
+            </div>
+            
+            <div style="padding-bottom: 80px;">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Recent Activity</h3>
+                <div class="record-item">
+                    <div class="record-title">Cancer Scan - Lung</div>
+                    <div class="record-date">2 days ago • 97% confidence</div>
+                </div>
+                <div class="record-item">
+                    <div class="record-title">Mood Check-in</div>
+                    <div class="record-date">Yesterday • Feeling good</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detection Screen -->
+        <div class="screen" id="detectionScreen">
+            <h2 class="screen-title">Cancer Detection</h2>
+            
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>Upload Medical Image</h3>
+                <p>Drag and drop or click to browse</p>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            </div>
+            
+            <button class="btn" onclick="simulateDetection()">
+                <i class="fas fa-camera"></i> Take Photo
+            </button>
+            
+            <div style="padding-bottom: 80px;">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Recent Scans</h3>
+                <div class="record-item">
+                    <div class="record-title">Chest X-Ray</div>
+                    <div class="record-date">2 days ago • No cancer detected</div>
+                </div>
+                <div class="record-item">
+                    <div class="record-title">Brain MRI</div>
+                    <div class="record-date">1 week ago • Clear</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mental Health Screen -->
+        <div class="screen" id="mentalHealthScreen">
+            <h2 class="screen-title">Mental Health</h2>
+            
+            <div style="background: var(--light); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">How are you feeling today?</h3>
+                <div class="mood-tracker">
+                    <div class="mood-option" onclick="selectMood(this, 'great')">
+                        <div class="mood-emoji">😊</div>
+                        <div class="mood-label">Great</div>
+                    </div>
+                    <div class="mood-option" onclick="selectMood(this, 'good')">
+                        <div class="mood-emoji">🙂</div>
+                        <div class="mood-label">Good</div>
+                    </div>
+                    <div class="mood-option" onclick="selectMood(this, 'okay')">
+                        <div class="mood-emoji">😐</div>
+                        <div class="mood-label">Okay</div>
+                    </div>
+                    <div class="mood-option" onclick="selectMood(this, 'bad')">
+                        <div class="mood-emoji">😔</div>
+                        <div class="mood-label">Bad</div>
+                    </div>
+                    <div class="mood-option" onclick="selectMood(this, 'terrible')">
+                        <div class="mood-emoji">😢</div>
+                        <div class="mood-label">Terrible</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <div class="action-title">Meditation</div>
+                    <div class="action-subtitle">5 min session</div>
+                </div>
+                
+                <div class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="action-title">Support</div>
+                    <div class="action-subtitle">Talk to someone</div>
+                </div>
+            </div>
+            
+            <div style="padding-bottom: 80px;">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Mood History</h3>
+                <div class="record-item">
+                    <div class="record-title">Yesterday - Good 😊</div>
+                    <div class="record-date">Feeling positive and motivated</div>
+                </div>
+                <div class="record-item">
+                    <div class="record-title">2 days ago - Okay 😐</div>
+                    <div class="record-date">Some anxiety about treatment</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Records Screen -->
+        <div class="screen" id="recordsScreen">
+            <h2 class="screen-title">Medical Records</h2>
+            
+            <div style="padding-bottom: 80px;">
+                <div class="record-item">
+                    <div class="record-title">Blood Test Results</div>
+                    <div class="record-date">Oct 15, 2024 • Dr. Smith</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%;"></div>
+                    </div>
+                    <div style="font-size: 0.8em; color: var(--border); margin-top: 5px;">All values normal</div>
+                </div>
+                
+                <div class="record-item">
+                    <div class="record-title">Cancer Screening</div>
+                    <div class="record-date">Oct 10, 2024 • Dr. Johnson</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 97%;"></div>
+                    </div>
+                    <div style="font-size: 0.8em; color: var(--border); margin-top: 5px;">No cancer detected</div>
+                </div>
+                
+                <div class="record-item">
+                    <div class="record-title">MRI Scan</div>
+                    <div class="record-date">Sep 28, 2024 • Dr. Williams</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                    <div style="font-size: 0.8em; color: var(--border); margin-top: 5px;">Clear results</div>
+                </div>
+                
+                <div class="record-item">
+                    <div class="record-title">Prescription</div>
+                    <div class="record-date">Sep 15, 2024 • Dr. Brown</div>
+                    <div style="font-size: 0.8em; color: var(--border); margin-top: 5px;">Vitamin D supplements</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Appointments Screen -->
+        <div class="screen" id="appointmentsScreen">
+            <h2 class="screen-title">Appointments</h2>
+            
+            <button class="btn" style="background: var(--accent);">
+                <i class="fas fa-plus"></i> Book New Appointment
+            </button>
+            
+            <div style="padding-bottom: 80px; margin-top: 20px;">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Upcoming</h3>
+                
+                <div class="appointment-card">
+                    <div class="appointment-time">Tomorrow, 10:00 AM</div>
+                    <div class="appointment-doctor">Dr. Sarah Johnson - Oncologist</div>
+                    <div class="appointment-type">Follow-up consultation</div>
+                </div>
+                
+                <div class="appointment-card">
+                    <div class="appointment-time">Oct 25, 2:30 PM</div>
+                    <div class="appointment-doctor">Dr. Michael Chen - Radiologist</div>
+                    <div class="appointment-type">MRI Scan</div>
+                </div>
+                
+                <h3 style="margin-bottom: 15px; color: var(--dark); margin-top: 30px;">Past</h3>
+                
+                <div class="appointment-card" style="opacity: 0.7;">
+                    <div class="appointment-time">Oct 10, 11:00 AM</div>
+                    <div class="appointment-doctor">Dr. Emily Davis - General Practitioner</div>
+                    <div class="appointment-type">Annual checkup</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Notifications Screen -->
+        <div class="screen" id="notificationsScreen">
+            <h2 class="screen-title">Notifications</h2>
+            
+            <div style="padding-bottom: 80px;">
+                <div class="notification-item">
+                    <div class="notification-icon urgent">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Appointment Reminder</div>
+                        <div class="notification-time">Tomorrow, 10:00 AM with Dr. Johnson</div>
+                    </div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-icon info">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Medication Reminder</div>
+                        <div class="notification-time">Take Vitamin D at 8:00 PM</div>
+                    </div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-icon success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Test Results Available</div>
+                        <div class="notification-time">Blood test results are ready</div>
+                    </div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-icon info">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Daily Check-in</div>
+                        <div class="notification-time">How are you feeling today?</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings Screen -->
+        <div class="screen" id="settingsScreen">
+            <h2 class="screen-title">Settings</h2>
+            
+            <div style="padding-bottom: 80px;">
+                <div class="settings-item">
+                    <div class="settings-left">
+                        <div class="settings-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div class="settings-title">Profile</div>
+                            <div style="font-size: 0.8em; color: var(--border);">John Doe</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: var(--border);"></i>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-left">
+                        <div class="settings-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div>
+                            <div class="settings-title">Notifications</div>
+                            <div style="font-size: 0.8em; color: var(--border);">Push notifications</div>
+                        </div>
+                    </div>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-left">
+                        <div class="settings-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div>
+                            <div class="settings-title">Privacy</div>
+                            <div style="font-size: 0.8em; color: var(--border);">Data sharing settings</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: var(--border);"></i>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-left">
+                        <div class="settings-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div>
+                            <div class="settings-title">Security</div>
+                            <div style="font-size: 0.8em; color: var(--border);">Password & biometrics</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: var(--border);"></i>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-left">
+                        <div class="settings-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div>
+                            <div class="settings-title">Dark Mode</div>
+                            <div style="font-size: 0.8em; color: var(--border);">Theme settings</div>
+                        </div>
+                    </div>
+                    <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-left">
+                        <div class="settings-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div>
+                            <div class="settings-title">Help & Support</div>
+                            <div style="font-size: 0.8em; color: var(--border);">FAQs and contact</div>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right" style="color: var(--border);"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="showScreen('dashboardScreen')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('detectionScreen')">
+                <i class="fas fa-microscope"></i>
+                <span>Scan</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('mentalHealthScreen')">
+                <i class="fas fa-brain"></i>
+                <span>Mental</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('appointmentsScreen')">
+                <i class="fas fa-calendar"></i>
+                <span>Visits</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('settingsScreen')">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Screen navigation
+        function showScreen(screenId) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Show selected screen
+            document.getElementById(screenId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find and activate corresponding nav item
+            const navItems = document.querySelectorAll('.nav-item');
+            const screenMap = {
+                'dashboardScreen': 0,
+                'detectionScreen': 1,
+                'mentalHealthScreen': 2,
+                'appointmentsScreen': 3,
+                'settingsScreen': 4
+            };
+            
+            if (screenMap[screenId] !== undefined) {
+                navItems[screenMap[screenId]].classList.add('active');
+            }
+        }
+        
+        // Mood selection
+        function selectMood(element, mood) {
+            document.querySelectorAll('.mood-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            
+            // Save mood (in real app, this would save to backend)
+            console.log('Mood selected:', mood);
+            
+            // Show confirmation
+            setTimeout(() => {
+                alert('Mood saved! Keep tracking your mental health.');
+            }, 500);
+        }
+        
+        // Toggle switch
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+        }
+        
+        // Simulate detection
+        function simulateDetection() {
+            alert('Camera would open here to take a photo of medical image');
+        }
+        
+        // File upload handler
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                alert('File uploaded: ' + file.name + '\n\nIn real app, this would analyze the image with AI.');
+            }
+        });
+        
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('CancerCare AI Mobile App Ready!');
+        });
+    </script>
+</body>
+</html>

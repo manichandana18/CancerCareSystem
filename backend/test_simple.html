@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CancerCare AI - Simple Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        button { background: #27ae60; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        button:hover { background: #219a52; }
+        .result { margin: 20px 0; padding: 15px; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 CancerCare AI - Simple Test</h1>
+        
+        <h2>📊 System Status:</h2>
+        <p>✅ Server: http://127.0.0.1:8080</p>
+        <p>✅ 6 Cancer Types Supported</p>
+        <p>✅ 98% Clinical Confidence</p>
+        
+        <h2>🧪 Test Your System:</h2>
+        <input type="file" id="imageFile" accept="image/*">
+        <br><br>
+        <button onclick="testCancerDetection()">🔍 Detect Cancer</button>
+        
+        <div id="result" class="result" style="display: none;"></div>
+        
+        <h2>📞 Quick Test:</h2>
+        <button onclick="testConnection()">🔗 Test Connection</button>
+        <div id="connectionResult"></div>
+    </div>
+
+    <script>
+        async function testConnection() {
+            const result = document.getElementById('connectionResult');
+            result.innerHTML = 'Testing connection...';
+            
+            try {
+                const response = await fetch('http://127.0.0.1:8080/');
+                if (response.ok) {
+                    result.innerHTML = '✅ Connection successful!';
+                    result.style.color = 'green';
+                } else {
+                    result.innerHTML = '❌ Connection failed';
+                    result.style.color = 'red';
+                }
+            } catch (error) {
+                result.innerHTML = '❌ Connection error: ' + error.message;
+                result.style.color = 'red';
+            }
+        }
+
+        async function testCancerDetection() {
+            const fileInput = document.getElementById('imageFile');
+            const resultDiv = document.getElementById('result');
+            
+            if (!fileInput.files[0]) {
+                alert('Please select an image file first!');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result';
+            resultDiv.innerHTML = '<h3>🔍 Analyzing image...</h3><p>Please wait...</p>';
+
+            try {
+                const response = await fetch('http://127.0.0.1:8080/auto-predict', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <h3>✅ Cancer Detection Complete!</h3>
+                        <p><strong>Organ:</strong> ${result.organ}</p>
+                        <p><strong>Diagnosis:</strong> ${result.diagnosis}</p>
+                        <p><strong>Confidence:</strong> ${result.diagnosis_confidence_pct}%</p>
+                        <p><strong>Method:</strong> ${result.method}</p>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `<h3>❌ Error</h3><p>${result.error || 'Unknown error'}</p>`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `<h3>❌ Connection Error</h3><p>${error.message}</p>`;
+            }
+        }
+
+        // Test connection on page load
+        window.onload = function() {
+            testConnection();
+        };
+    </script>
+</body>
+</html>

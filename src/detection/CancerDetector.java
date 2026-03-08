@@ -1,5 +1,3 @@
-package detection;
-
 public class CancerDetector {
 
     public String detect(String imageData) {

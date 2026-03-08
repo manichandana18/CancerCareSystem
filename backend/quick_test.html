@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quick Test</title>
+</head>
+<body>
+    <h1>CancerCare AI - Quick Test</h1>
+    
+    <h2>Step 1: Test Connection</h2>
+    <button onclick="testConnection()">Test Server</button>
+    <div id="connectionResult"></div>
+    
+    <h2>Step 2: Upload Image</h2>
+    <input type="file" id="fileInput">
+    <button onclick="uploadImage()">Upload & Test</button>
+    <div id="uploadResult"></div>
+    
+    <script>
+        async function testConnection() {
+            try {
+                const response = await fetch('http://127.0.0.1:8080/');
+                const data = await response.json();
+                document.getElementById('connectionResult').innerHTML = 
+                    '✅ SUCCESS: ' + JSON.stringify(data);
+            } catch (error) {
+                document.getElementById('connectionResult').innerHTML = 
+                    '❌ ERROR: ' + error.message;
+            }
+        }
+        
+        async function uploadImage() {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files[0]) {
+                alert('Please select a file first');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            
+            try {
+                const response = await fetch('http://127.0.0.1:8080/auto-predict', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                document.getElementById('uploadResult').innerHTML = 
+                    '✅ SUCCESS: ' + JSON.stringify(result, null, 2);
+            } catch (error) {
+                document.getElementById('uploadResult').innerHTML = 
+                    '❌ ERROR: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

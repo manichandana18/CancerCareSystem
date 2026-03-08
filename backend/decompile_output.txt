@@ -1,0 +1,753 @@
+﻿=== Code Object: <module> ===
+Args: ()
+All Vars: ()
+Names: ('__doc__', 'sys', 'pathlib', 'Path', 'sqlite3', 'hashlib', 'secrets', 'json', 'datetime', 'timedelta', 'cryptography.fernet', 'Fernet', 'cryptography.hazmat.primitives', 'hashes', 'cryptography.hazmat.primitives.kdf.pbkdf2', 'PBKDF2HMAC', 'base64', 'os', 'path', 'append', 'str', '__file__', 'parent', 'SecureDatabase', 'initialize_secure_system', '__name__', 'secure_db')
+  CONST str: '\nSecure Database Integration for CancerCare AI\nHIPAA-compliant database with encryption and security\n'
+  CONST int: 0
+  CONST str: 'SecureDatabase'
+  CONST str: 'initialize_secure_system'
+  CONST str: '__main__'
+--- Disassembly ---
+  1           0 LOAD_CONST               0 ('\nSecure Database Integration for CancerCare AI\nHIPAA-compliant database with encryption and security\n')
+              2 STORE_NAME               0 (__doc__)
+
+  6           4 LOAD_CONST               1 (0)
+              6 LOAD_CONST               2 (None)
+              8 IMPORT_NAME              1 (sys)
+             10 STORE_NAME               1 (sys)
+
+  7          12 LOAD_CONST               1 (0)
+             14 LOAD_CONST               3 (('Path',))
+             16 IMPORT_NAME              2 (pathlib)
+             18 IMPORT_FROM              3 (Path)
+             20 STORE_NAME               3 (Path)
+             22 POP_TOP
+
+  8          24 LOAD_CONST               1 (0)
+             26 LOAD_CONST               2 (None)
+             28 IMPORT_NAME              4 (sqlite3)
+             30 STORE_NAME               4 (sqlite3)
+
+  9          32 LOAD_CONST               1 (0)
+             34 LOAD_CONST               2 (None)
+             36 IMPORT_NAME              5 (hashlib)
+             38 STORE_NAME               5 (hashlib)
+
+ 10          40 LOAD_CONST               1 (0)
+             42 LOAD_CONST               2 (None)
+             44 IMPORT_NAME              6 (secrets)
+             46 STORE_NAME               6 (secrets)
+
+ 11          48 LOAD_CONST               1 (0)
+             50 LOAD_CONST               2 (None)
+             52 IMPORT_NAME              7 (json)
+             54 STORE_NAME               7 (json)
+
+ 12          56 LOAD_CONST               1 (0)
+             58 LOAD_CONST               4 (('datetime', 'timedelta'))
+             60 IMPORT_NAME              8 (datetime)
+             62 IMPORT_FROM              8 (datetime)
+             64 STORE_NAME               8 (datetime)
+             66 IMPORT_FROM              9 (timedelta)
+             68 STORE_NAME               9 (timedelta)
+             70 POP_TOP
+
+ 13          72 LOAD_CONST               1 (0)
+             74 LOAD_CONST               5 (('Fernet',))
+             76 IMPORT_NAME             10 (cryptography.fernet)
+             78 IMPORT_FROM             11 (Fernet)
+             80 STORE_NAME              11 (Fernet)
+             82 POP_TOP
+
+ 14          84 LOAD_CONST               1 (0)
+             86 LOAD_CONST               6 (('hashes',))
+             88 IMPORT_NAME             12 (cryptography.hazmat.primitives)
+             90 IMPORT_FROM             13 (hashes)
+             92 STORE_NAME              13 (hashes)
+             94 POP_TOP
+
+ 15          96 LOAD_CONST               1 (0)
+             98 LOAD_CONST               7 (('PBKDF2HMAC',))
+            100 IMPORT_NAME             14 (cryptography.hazmat.primitives.kdf.pbkdf2)
+            102 IMPORT_FROM             15 (PBKDF2HMAC)
+            104 STORE_NAME              15 (PBKDF2HMAC)
+            106 POP_TOP
+
+ 16         108 LOAD_CONST               1 (0)
+            110 LOAD_CONST               2 (None)
+            112 IMPORT_NAME             16 (base64)
+            114 STORE_NAME              16 (base64)
+
+ 17         116 LOAD_CONST               1 (0)
+            118 LOAD_CONST               2 (None)
+            120 IMPORT_NAME             17 (os)
+            122 STORE_NAME              17 (os)
+
+ 20         124 LOAD_NAME                1 (sys)
+            126 LOAD_ATTR               18 (path)
+            128 LOAD_METHOD             19 (append)
+            130 LOAD_NAME               20 (str)
+            132 LOAD_NAME                3 (Path)
+            134 LOAD_NAME               21 (__file__)
+            136 CALL_FUNCTION            1
+            138 LOAD_ATTR               22 (parent)
+            140 CALL_FUNCTION            1
+            142 CALL_METHOD              1
+            144 POP_TOP
+
+ 22         146 LOAD_BUILD_CLASS
+            148 LOAD_CONST               8 (<code object SecureDatabase at 0x00000230CA438240, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 22>)
+            150 LOAD_CONST               9 ('SecureDatabase')
+            152 MAKE_FUNCTION            0
+            154 LOAD_CONST               9 ('SecureDatabase')
+            156 CALL_FUNCTION            2
+            158 STORE_NAME              23 (SecureDatabase)
+
+674         160 LOAD_CONST              10 (<code object initialize_secure_system at 0x00000230CA438190, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 674>)
+            162 LOAD_CONST              11 ('initialize_secure_system')
+            164 MAKE_FUNCTION            0
+            166 STORE_NAME              24 (initialize_secure_system)
+
+730         168 LOAD_NAME               25 (__name__)
+            170 LOAD_CONST              12 ('__main__')
+            172 COMPARE_OP               2 (==)
+            174 POP_JUMP_IF_FALSE       93 (to 186)
+
+731         176 LOAD_NAME               24 (initialize_secure_system)
+            178 CALL_FUNCTION            0
+            180 STORE_NAME              26 (secure_db)
+            182 LOAD_CONST               2 (None)
+            184 RETURN_VALUE
+
+730     >>  186 LOAD_CONST               2 (None)
+            188 RETURN_VALUE
+
+Disassembly of <code object SecureDatabase at 0x00000230CA438240, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 22>:
+ 22           0 LOAD_NAME                0 (__name__)
+              2 STORE_NAME               1 (__module__)
+              4 LOAD_CONST               0 ('SecureDatabase')
+              6 STORE_NAME               2 (__qualname__)
+
+ 23           8 LOAD_CONST               1 ('HIPAA-compliant secure database')
+             10 STORE_NAME               3 (__doc__)
+
+ 25          12 LOAD_CONST              42 (('cancercare_secure.db',))
+             14 LOAD_CONST               3 (<code object __init__ at 0x00000230CA411420, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 25>)
+             16 LOAD_CONST               4 ('SecureDatabase.__init__')
+             18 MAKE_FUNCTION            1 (defaults)
+             20 STORE_NAME               4 (__init__)
+
+ 31          22 LOAD_CONST               5 (<code object _generate_encryption_key at 0x00000230CA413AA0, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 31>)
+             24 LOAD_CONST               6 ('SecureDatabase._generate_encryption_key')
+             26 MAKE_FUNCTION            0
+             28 STORE_NAME               5 (_generate_encryption_key)
+
+ 45          30 LOAD_CONST               7 (<code object _encrypt_data at 0x00000230CA413B50, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 45>)
+             32 LOAD_CONST               8 ('SecureDatabase._encrypt_data')
+             34 MAKE_FUNCTION            0
+             36 STORE_NAME               6 (_encrypt_data)
+
+ 52          38 LOAD_CONST               9 (<code object _decrypt_data at 0x00000230CA413C00, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 52>)
+             40 LOAD_CONST              10 ('SecureDatabase._decrypt_data')
+             42 MAKE_FUNCTION            0
+             44 STORE_NAME               7 (_decrypt_data)
+
+ 59          46 LOAD_CONST              11 (<code object _hash_password at 0x00000230CA413CB0, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 59>)
+             48 LOAD_CONST              12 ('SecureDatabase._hash_password')
+             50 MAKE_FUNCTION            0
+             52 STORE_NAME               8 (_hash_password)
+
+ 68          54 LOAD_CONST              13 (<code object _verify_password at 0x00000230CA413D60, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 68>)
+             56 LOAD_CONST              14 ('SecureDatabase._verify_password')
+             58 MAKE_FUNCTION            0
+             60 STORE_NAME               9 (_verify_password)
+
+ 80          62 LOAD_CONST              15 (<code object _get_connection at 0x00000230CA413E10, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 80>)
+             64 LOAD_CONST              16 ('SecureDatabase._get_connection')
+             66 MAKE_FUNCTION            0
+             68 STORE_NAME              10 (_get_connection)
+
+ 84          70 LOAD_CONST              17 (<code object _initialize_database at 0x00000230CA413EC0, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 84>)
+             72 LOAD_CONST              18 ('SecureDatabase._initialize_database')
+             74 MAKE_FUNCTION            0
+             76 STORE_NAME              11 (_initialize_database)
+
+251          78 LOAD_CONST              43 ((None, None, 'standard'))
+             80 LOAD_CONST              21 (<code object create_user at 0x00000230CA41C190, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 251>)
+             82 LOAD_CONST              22 ('SecureDatabase.create_user')
+             84 MAKE_FUNCTION            1 (defaults)
+             86 STORE_NAME              12 (create_user)
+
+287          88 LOAD_CONST              44 ((None, None))
+             90 LOAD_CONST              23 (<code object authenticate_user at 0x00000230CA41C030, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 287>)
+             92 LOAD_CONST              24 ('SecureDatabase.authenticate_user')
+             94 MAKE_FUNCTION            1 (defaults)
+             96 STORE_NAME              13 (authenticate_user)
+
+357          98 LOAD_CONST              44 ((None, None))
+            100 LOAD_CONST              25 (<code object create_session at 0x00000230CA41C0E0, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 357>)
+            102 LOAD_CONST              26 ('SecureDatabase.create_session')
+            104 MAKE_FUNCTION            1 (defaults)
+            106 STORE_NAME              14 (create_session)
+
+385         108 LOAD_CONST              44 ((None, None))
+            110 LOAD_CONST              27 (<code object verify_session at 0x00000230CA41C240, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 385>)
+            112 LOAD_CONST              28 ('SecureDatabase.verify_session')
+            114 MAKE_FUNCTION            1 (defaults)
+            116 STORE_NAME              15 (verify_session)
+
+421         118 LOAD_CONST              45 ((None,))
+            120 LOAD_CONST              29 (<code object create_otp at 0x00000230CA41C7C0, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 421>)
+            122 LOAD_CONST              30 ('SecureDatabase.create_otp')
+            124 MAKE_FUNCTION            1 (defaults)
+            126 STORE_NAME              16 (create_otp)
+
+454         128 LOAD_CONST              31 (<code object verify_otp at 0x00000230CA41E080, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 454>)
+            130 LOAD_CONST              32 ('SecureDatabase.verify_otp')
+            132 MAKE_FUNCTION            0
+            134 STORE_NAME              17 (verify_otp)
+
+528         136 LOAD_CONST              46 ((None, None, 'low', None))
+            138 LOAD_CONST              34 (<code object _log_security_event at 0x00000230CA41F050, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 528>)
+            140 LOAD_CONST              35 ('SecureDatabase._log_security_event')
+            142 MAKE_FUNCTION            1 (defaults)
+            144 STORE_NAME              18 (_log_security_event)
+
+552         146 LOAD_CONST              36 (<code object get_user_info at 0x00000230CA41FB50, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 552>)
+            148 LOAD_CONST              37 ('SecureDatabase.get_user_info')
+            150 MAKE_FUNCTION            0
+            152 STORE_NAME              19 (get_user_info)
+
+597         154 LOAD_CONST              44 ((None, None))
+            156 LOAD_CONST              38 (<code object save_cancer_detection at 0x00000230CA41F100, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 597>)
+            158 LOAD_CONST              39 ('SecureDatabase.save_cancer_detection')
+            160 MAKE_FUNCTION            1 (defaults)
+            162 STORE_NAME              20 (save_cancer_detection)
+
+624         164 LOAD_CONST              40 (<code object get_security_report at 0x00000230CA431160, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 624>)
+            166 LOAD_CONST              41 ('SecureDatabase.get_security_report')
+            168 MAKE_FUNCTION            0
+            170 STORE_NAME              21 (get_security_report)
+            172 LOAD_CONST              19 (None)
+            174 RETURN_VALUE
+
+Disassembly of <code object __init__ at 0x00000230CA411420, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 25>:
+ 26           0 LOAD_FAST                1 (db_path)
+              2 LOAD_FAST                0 (self)
+              4 STORE_ATTR               0 (db_path)
+
+ 27           6 LOAD_FAST                0 (self)
+              8 LOAD_METHOD              1 (_generate_encryption_key)
+             10 CALL_METHOD              0
+             12 LOAD_FAST                0 (self)
+             14 STORE_ATTR               2 (encryption_key)
+
+ 28          16 LOAD_GLOBAL              3 (Fernet)
+             18 LOAD_FAST                0 (self)
+             20 LOAD_ATTR                2 (encryption_key)
+             22 CALL_FUNCTION            1
+             24 LOAD_FAST                0 (self)
+             26 STORE_ATTR               4 (cipher_suite)
+
+ 29          28 LOAD_FAST                0 (self)
+             30 LOAD_METHOD              5 (_initialize_database)
+             32 CALL_METHOD              0
+             34 POP_TOP
+             36 LOAD_CONST               0 (None)
+             38 RETURN_VALUE
+
+Disassembly of <code object _generate_encryption_key at 0x00000230CA413AA0, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 31>:
+ 33           0 LOAD_CONST               1 (b'CancerCare_Secure_Master_Key_2024')
+              2 STORE_FAST               1 (password)
+
+ 34           4 LOAD_CONST               2 (b'CancerCare_Salt_Secure_2024')
+              6 STORE_FAST               2 (salt)
+
+ 36           8 LOAD_GLOBAL              0 (PBKDF2HMAC)
+
+ 37          10 LOAD_GLOBAL              1 (hashes)
+             12 LOAD_METHOD              2 (SHA256)
+             14 CALL_METHOD              0
+
+ 38          16 LOAD_CONST               3 (32)
+
+ 39          18 LOAD_FAST                2 (salt)
+
+ 40          20 LOAD_CONST               4 (100000)
+
+ 36          22 LOAD_CONST               5 (('algorithm', 'length', 'salt', 'iterations'))
+             24 CALL_FUNCTION_KW         4
+             26 STORE_FAST               3 (kdf)
+
+ 42          28 LOAD_GLOBAL              3 (base64)
+             30 LOAD_METHOD              4 (urlsafe_b64encode)
+             32 LOAD_FAST                3 (kdf)
+             34 LOAD_METHOD              5 (derive)
+             36 LOAD_FAST                1 (password)
+             38 CALL_METHOD              1
+             40 CALL_METHOD              1
+             42 STORE_FAST               4 (key)
+
+ 43          44 LOAD_FAST                4 (key)
+             46 RETURN_VALUE
+
+Disassembly of <code object _encrypt_data at 0x00000230CA413B50, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 45>:
+ 47           0 LOAD_GLOBAL              0 (isinstance)
+              2 LOAD_FAST                1 (data)
+              4 LOAD_GLOBAL              1 (str)
+              6 CALL_FUNCTION            2
+              8 POP_JUMP_IF_FALSE        9 (to 18)
+
+ 48          10 LOAD_FAST                1 (data)
+             12 LOAD_METHOD              2 (encode)
+             14 CALL_METHOD              0
+             16 STORE_FAST               1 (data)
+
+ 49     >>   18 LOAD_FAST                0 (self)
+             20 LOAD_ATTR                3 (cipher_suite)
+             22 LOAD_METHOD              4 (encrypt)
+             24 LOAD_FAST                1 (data)
+             26 CALL_METHOD              1
+             28 STORE_FAST               2 (encrypted)
+
+ 50          30 LOAD_GLOBAL              5 (base64)
+             32 LOAD_METHOD              6 (urlsafe_b64encode)
+             34 LOAD_FAST                2 (encrypted)
+             36 CALL_METHOD              1
+             38 LOAD_METHOD              7 (decode)
+             40 CALL_METHOD              0
+             42 RETURN_VALUE
+
+Disassembly of <code object _decrypt_data at 0x00000230CA413C00, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 52>:
+ 54           0 LOAD_GLOBAL              0 (isinstance)
+              2 LOAD_FAST                1 (encrypted_data)
+              4 LOAD_GLOBAL              1 (str)
+              6 CALL_FUNCTION            2
+              8 POP_JUMP_IF_FALSE       12 (to 24)
+
+ 55          10 LOAD_GLOBAL              2 (base64)
+             12 LOAD_METHOD              3 (urlsafe_b64decode)
+             14 LOAD_FAST                1 (encrypted_data)
+             16 LOAD_METHOD              4 (encode)
+             18 CALL_METHOD              0
+             20 CALL_METHOD              1
+             22 STORE_FAST               1 (encrypted_data)
+
+ 56     >>   24 LOAD_FAST                0 (self)
+             26 LOAD_ATTR                5 (cipher_suite)
+             28 LOAD_METHOD              6 (decrypt)
+             30 LOAD_FAST                1 (encrypted_data)
+             32 CALL_METHOD              1
+             34 STORE_FAST               2 (decrypted)
+
+ 57          36 LOAD_FAST                2 (decrypted)
+             38 LOAD_METHOD              7 (decode)
+             40 CALL_METHOD              0
+             42 RETURN_VALUE
+
+Disassembly of <code object _hash_password at 0x00000230CA413CB0, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 59>:
+ 61           0 LOAD_GLOBAL              0 (secrets)
+              2 LOAD_METHOD              1 (token_hex)
+              4 LOAD_CONST               1 (32)
+              6 CALL_METHOD              1
+              8 STORE_FAST               2 (salt)
+
+ 62          10 LOAD_GLOBAL              2 (hashlib)
+             12 LOAD_METHOD              3 (pbkdf2_hmac)
+             14 LOAD_CONST               2 ('sha256')
+
+ 63          16 LOAD_FAST                1 (password)
+             18 LOAD_METHOD              4 (encode)
+             20 LOAD_CONST               3 ('utf-8')
+             22 CALL_METHOD              1
+
+ 64          24 LOAD_FAST                2 (salt)
+             26 LOAD_METHOD              4 (encode)
+             28 LOAD_CONST               3 ('utf-8')
+             30 CALL_METHOD              1
+
+ 65          32 LOAD_CONST               4 (100000)
+
+ 62          34 CALL_METHOD              4
+             36 STORE_FAST               3 (password_hash)
+
+ 66          38 LOAD_FAST                2 (salt)
+             40 LOAD_FAST                3 (password_hash)
+             42 LOAD_METHOD              5 (hex)
+             44 CALL_METHOD              0
+             46 BINARY_ADD
+             48 RETURN_VALUE
+
+Disassembly of <code object _verify_password at 0x00000230CA413D60, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 68>:
+ 70           0 LOAD_FAST                2 (stored_hash)
+              2 LOAD_CONST               1 (None)
+              4 LOAD_CONST               2 (64)
+              6 BUILD_SLICE              2
+              8 BINARY_SUBSCR
+             10 STORE_FAST               3 (salt)
+
+ 71          12 LOAD_FAST                2 (stored_hash)
+             14 LOAD_CONST               2 (64)
+             16 LOAD_CONST               1 (None)
+             18 BUILD_SLICE              2
+             20 BINARY_SUBSCR
+             22 STORE_FAST               4 (stored_password_hash)
+
+ 73          24 LOAD_GLOBAL              0 (hashlib)
+             26 LOAD_METHOD              1 (pbkdf2_hmac)
+             28 LOAD_CONST               3 ('sha256')
+
+ 74          30 LOAD_FAST                1 (password)
+             32 LOAD_METHOD              2 (encode)
+             34 LOAD_CONST               4 ('utf-8')
+             36 CALL_METHOD              1
+
+ 75          38 LOAD_FAST                3 (salt)
+             40 LOAD_METHOD              2 (encode)
+             42 LOAD_CONST               4 ('utf-8')
+             44 CALL_METHOD              1
+
+ 76          46 LOAD_CONST               5 (100000)
+
+ 73          48 CALL_METHOD              4
+
+ 76          50 LOAD_METHOD              3 (hex)
+             52 CALL_METHOD              0
+
+ 73          54 STORE_FAST               5 (password_hash)
+
+ 78          56 LOAD_FAST                5 (password_hash)
+             58 LOAD_FAST                4 (stored_password_hash)
+             60 COMPARE_OP               2 (==)
+             62 RETURN_VALUE
+
+Disassembly of <code object _get_connection at 0x00000230CA413E10, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 80>:
+ 82           0 LOAD_GLOBAL              0 (sqlite3)
+              2 LOAD_ATTR                1 (connect)
+              4 LOAD_FAST                0 (self)
+              6 LOAD_ATTR                2 (db_path)
+              8 LOAD_CONST               1 (False)
+             10 LOAD_CONST               2 (20)
+             12 LOAD_CONST               3 (('check_same_thread', 'timeout'))
+             14 CALL_FUNCTION_KW         3
+             16 RETURN_VALUE
+
+Disassembly of <code object _initialize_database at 0x00000230CA413EC0, file "C:\Users\Balaiah goud\Desktop\CancerCareSystem\backend\secure_database.py", line 84>:
+ 87           0 LOAD_FAST                0 (self)
+              2 LOAD_METHOD              0 (_get_connection)
+              4 CALL_METHOD              0
+              6 SETUP_WITH             154 (to 316)
+              8 STORE_FAST               1 (conn)
+
+ 88          10 LOAD_FAST                1 (conn)
+             12 LOAD_METHOD              1 (cursor)
+             14 CALL_METHOD              0
+             16 STORE_FAST               2 (cursor)
+
+ 91          18 LOAD_FAST                2 (cursor)
+             20 LOAD_METHOD              2 (execute)
+             22 LOAD_CONST               1 ('PRAGMA foreign_keys = ON')
+             24 CALL_METHOD              1
+             26 POP_TOP
+
+ 92          28 LOAD_FAST                2 (cursor)
+             30 LOAD_METHOD              2 (execute)
+             32 LOAD_CONST               2 ('PRAGMA secure_delete = ON')
+             34 CALL_METHOD              1
+             36 POP_TOP
+
+ 94          38 LOAD_GLOBAL              3 (print)
+             40 LOAD_CONST               3 ('DB: PRAGMAs set')
+             42 CALL_FUNCTION            1
+             44 POP_TOP
+
+ 97          46 LOAD_FAST                2 (cursor)
+             48 LOAD_METHOD              2 (execute)
+             50 LOAD_CONST               4 ("\n                CREATE TABLE IF NOT EXISTS users (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    user_id TEXT UNIQUE NOT NULL,\n                    email_encrypted TEXT NOT NULL,\n                    phone_encrypted TEXT,\n                    name_encrypted TEXT NOT NULL,\n                    password_hash TEXT NOT NULL,\n                    age INTEGER, -- Added for accessibility scaling\n                    gender TEXT, -- Added for profile customization\n                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    is_active BOOLEAN DEFAULT 1,\n                    last_login TIMESTAMP,\n                    login_attempts INTEGER DEFAULT 0,\n                    account_locked BOOLEAN DEFAULT 0,\n                    security_level TEXT DEFAULT 'standard'\n                )\n            ")
+             52 CALL_METHOD              1
+             54 POP_TOP
+
+118          56 SETUP_FINALLY           11 (to 80)
+
+119          58 LOAD_FAST                2 (cursor)
+             60 LOAD_METHOD              2 (execute)
+             62 LOAD_CONST               5 ('ALTER TABLE users ADD COLUMN age INTEGER')
+             64 CALL_METHOD              1
+             66 POP_TOP
+
+120          68 LOAD_GLOBAL              3 (print)
+             70 LOAD_CONST               6 ('DB: Migrated users table: Added age column')
+             72 CALL_FUNCTION            1
+             74 POP_TOP
+             76 POP_BLOCK
+             78 JUMP_FORWARD            10 (to 100)
+
+121     >>   80 DUP_TOP
+             82 LOAD_GLOBAL              4 (sqlite3)
+             84 LOAD_ATTR                5 (OperationalError)
+             86 JUMP_IF_NOT_EXC_MATCH    49 (to 98)
+             88 POP_TOP
+             90 POP_TOP
+             92 POP_TOP
+
+122          94 POP_EXCEPT
+             96 JUMP_FORWARD             1 (to 100)
+
+121     >>   98 RERAISE                  0
+
+124     >>  100 SETUP_FINALLY           11 (to 124)
+
+125         102 LOAD_FAST                2 (cursor)
+            104 LOAD_METHOD              2 (execute)
+            106 LOAD_CONST               7 ('ALTER TABLE users ADD COLUMN gender TEXT')
+            108 CALL_METHOD              1
+            110 POP_TOP
+
+126         112 LOAD_GLOBAL              3 (print)
+            114 LOAD_CONST               8 ('DB: Migrated users table: Added gender column')
+            116 CALL_FUNCTION            1
+            118 POP_TOP
+            120 POP_BLOCK
+            122 JUMP_FORWARD            10 (to 144)
+
+127     >>  124 DUP_TOP
+            126 LOAD_GLOBAL              4 (sqlite3)
+            128 LOAD_ATTR                5 (OperationalError)
+            130 JUMP_IF_NOT_EXC_MATCH    71 (to 142)
+            132 POP_TOP
+            134 POP_TOP
+            136 POP_TOP
+
+128         138 POP_EXCEPT
+            140 JUMP_FORWARD             1 (to 144)
+
+127     >>  142 RERAISE                  0
+
+131     >>  144 LOAD_FAST                2 (cursor)
+            146 LOAD_METHOD              2 (execute)
+            148 LOAD_CONST               9 ('\n                CREATE TABLE IF NOT EXISTS user_sessions (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    session_token TEXT UNIQUE NOT NULL,\n                    user_id TEXT NOT NULL,\n                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    expires_at TIMESTAMP NOT NULL,\n                    is_active BOOLEAN DEFAULT 1,\n                    ip_address TEXT,\n                    user_agent TEXT,\n                    FOREIGN KEY (user_id) REFERENCES users(user_id)\n                )\n            ')
+            150 CALL_METHOD              1
+            152 POP_TOP
+
+146         154 LOAD_FAST                2 (cursor)
+            156 LOAD_METHOD              2 (execute)
+            158 LOAD_CONST              10 ('\n                CREATE TABLE IF NOT EXISTS otp_verification (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    contact_encrypted TEXT NOT NULL,\n                    otp_hash TEXT NOT NULL,\n                    method TEXT NOT NULL,\n                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    expires_at TIMESTAMP NOT NULL,\n                    is_used BOOLEAN DEFAULT 0,\n                    attempts INTEGER DEFAULT 0,\n                    user_id TEXT,\n                    FOREIGN KEY (user_id) REFERENCES users(user_id)\n                )\n            ')
+            160 CALL_METHOD              1
+            162 POP_TOP
+
+162         164 LOAD_FAST                2 (cursor)
+            166 LOAD_METHOD              2 (execute)
+            168 LOAD_CONST              11 ('\n                CREATE TABLE IF NOT EXISTS medical_records (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    patient_id TEXT NOT NULL,\n                    record_type TEXT NOT NULL,\n                    data_encrypted TEXT NOT NULL,\n                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    doctor_id TEXT,\n                    is_confidential BOOLEAN DEFAULT 1,\n                    access_log TEXT,\n                    FOREIGN KEY (patient_id) REFERENCES users(user_id)\n                )\n            ')
+            170 CALL_METHOD              1
+            172 POP_TOP
+
+178         174 LOAD_FAST                2 (cursor)
+            176 LOAD_METHOD              2 (execute)
+            178 LOAD_CONST              12 ('\n                CREATE TABLE IF NOT EXISTS cancer_detections (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    patient_id TEXT NOT NULL,\n                    image_path TEXT,\n                    organ_detected TEXT,\n                    diagnosis TEXT,\n                    confidence_score REAL,\n                    ai_model_version TEXT,\n                    detection_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    doctor_verified BOOLEAN DEFAULT 0,\n                    notes_encrypted TEXT,\n                    FOREIGN KEY (patient_id) REFERENCES users(user_id)\n                )\n            ')
+            180 CALL_METHOD              1
+            182 POP_TOP
+
+195         184 LOAD_FAST                2 (cursor)
+            186 LOAD_METHOD              2 (execute)
+            188 LOAD_CONST              13 ("\n                CREATE TABLE IF NOT EXISTS mental_health_records (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    patient_id TEXT NOT NULL,\n                    assessment_type TEXT,\n                    data_encrypted TEXT NOT NULL,\n                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    therapist_id TEXT,\n                    is_active BOOLEAN DEFAULT 1,\n                    confidentiality_level TEXT DEFAULT 'high',\n                    FOREIGN KEY (patient_id) REFERENCES users(user_id)\n                )\n            ")
+            190 CALL_METHOD              1
+            192 POP_TOP
+
+211         194 LOAD_FAST                2 (cursor)
+            196 LOAD_METHOD              2 (execute)
+            198 LOAD_CONST              14 ("\n                CREATE TABLE IF NOT EXISTS security_audit_log (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    user_id TEXT,\n                    action TEXT NOT NULL,\n                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    ip_address TEXT,\n                    user_agent TEXT,\n                    success BOOLEAN,\n                    details TEXT,\n                    risk_level TEXT DEFAULT 'low'\n                )\n            ")
+            200 CALL_METHOD              1
+            202 POP_TOP
+
+226         204 LOAD_FAST                2 (cursor)
+            206 LOAD_METHOD              2 (execute)
+python : Traceback 
+(most recent call 
+last):
+At line:1 char:1
++ python 
+decompile_pyc.py 
+2>&1 | Out-File 
+-Encoding utf8 
+decompile_outp ...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (Traceba   
+ ck (most recent     
+call last)::Stri    
+ng) [], RemoteEx    
+ception
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+  File 
+"C:\Users\Balaiah gou
+d\Desktop\CancerCareS
+ystem\backend\decompi
+le_pyc.py", line 35, 
+in <module>
+    extract_code_obje
+cts(code)
+  File 
+"C:\Users\Balaiah gou
+d\Desktop\CancerCareS
+ystem\backend\decompi
+le_pyc.py", line 27, 
+in 
+extract_code_objects
+    dis.dis(code_obj)
+  File 
+"C:\Users\Balaiah gou
+d\AppData\Local\Progr
+ams\Python\Python310\
+lib\dis.py", line 
+79, in dis
+    _disassemble_recu
+rsive(x, file=file, 
+depth=depth)
+  File 
+"C:\Users\Balaiah gou
+d\AppData\Local\Progr
+ams\Python\Python310\
+lib\dis.py", line 
+384, in _disassemble_
+recursive
+    _disassemble_recu
+rsive(x, file=file, 
+depth=depth)
+  File 
+"C:\Users\Balaiah gou
+d\AppData\Local\Progr
+ams\Python\Python310\
+lib\dis.py", line 
+384, in _disassemble_
+recursive
+    _disassemble_recu
+rsive(x, file=file, 
+depth=depth)
+  File 
+"C:\Users\Balaiah gou
+d\AppData\Local\Progr
+ams\Python\Python310\
+lib\dis.py", line 
+376, in _disassemble_
+recursive
+    disassemble(co, 
+file=file)
+  File 
+"C:\Users\Balaiah gou
+d\AppData\Local\Progr
+ams\Python\Python310\
+lib\dis.py", line 
+372, in disassemble
+    _disassemble_byte
+s(co.co_code, lasti, 
+co.co_varnames, 
+co.co_names,
+  File 
+"C:\Users\Balaiah gou
+d\AppData\Local\Progr
+ams\Python\Python310\
+lib\dis.py", line 
+413, in 
+_disassemble_bytes
+    print(instr._disa
+ssemble(lineno_width,
+ is_current_instr, 
+offset_width),
+  File 
+"C:\Users\Balaiah gou
+d\AppData\Local\Progr
+ams\Python\Python310\
+lib\encodings\cp1252.
+py", line 19, in 
+encode
+    return codecs.cha
+rmap_encode(input,sel
+f.errors,encoding_tab
+le)[0]
+UnicodeEncodeError: 
+'charmap' codec 
+can't encode 
+character 
+'\U0001f512' in 
+position 45: 
+character maps to 
+<undefined>
+            208 LOAD_CONST              15 ('\n                CREATE TABLE IF NOT EXISTS system_config (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    config_key TEXT UNIQUE NOT NULL,\n                    config_value_encrypted TEXT,\n                    description TEXT,\n                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    updated_by TEXT\n                )\n            ')
+            210 CALL_METHOD              1
+            212 POP_TOP
+
+238         214 LOAD_FAST                2 (cursor)
+            216 LOAD_METHOD              2 (execute)
+            218 LOAD_CONST              16 ('CREATE INDEX IF NOT EXISTS idx_users_email ON users(email_encrypted)')
+            220 CALL_METHOD              1
+            222 POP_TOP
+
+239         224 LOAD_FAST                2 (cursor)
+            226 LOAD_METHOD              2 (execute)
+            228 LOAD_CONST              17 ('CREATE INDEX IF NOT EXISTS idx_sessions_token ON user_sessions(session_token)')
+            230 CALL_METHOD              1
+            232 POP_TOP
+
+240         234 LOAD_FAST                2 (cursor)
+            236 LOAD_METHOD              2 (execute)
+            238 LOAD_CONST              18 ('CREATE INDEX IF NOT EXISTS idx_sessions_user ON user_sessions(user_id)')
+            240 CALL_METHOD              1
+            242 POP_TOP
+
+241         244 LOAD_FAST                2 (cursor)
+            246 LOAD_METHOD              2 (execute)
+            248 LOAD_CONST              19 ('CREATE INDEX IF NOT EXISTS idx_otp_contact ON otp_verification(contact_encrypted)')
+            250 CALL_METHOD              1
+            252 POP_TOP
+
+242         254 LOAD_FAST                2 (cursor)
+            256 LOAD_METHOD              2 (execute)
+            258 LOAD_CONST              20 ('CREATE INDEX IF NOT EXISTS idx_medical_patient ON medical_records(patient_id)')
+            260 CALL_METHOD              1
+            262 POP_TOP
+
+243         264 LOAD_FAST                2 (cursor)
+            266 LOAD_METHOD              2 (execute)
+            268 LOAD_CONST              21 ('CREATE INDEX IF NOT EXISTS idx_detection_patient ON cancer_detections(patient_id)')
+            270 CALL_METHOD              1
+            272 POP_TOP
+
+244         274 LOAD_FAST                2 (cursor)
+            276 LOAD_METHOD              2 (execute)
+            278 LOAD_CONST              22 ('CREATE INDEX IF NOT EXISTS idx_mental_patient ON mental_health_records(patient_id)')
+            280 CALL_METHOD              1
+            282 POP_TOP
+
+245         284 LOAD_FAST                2 (cursor)
+            286 LOAD_METHOD              2 (execute)
+            288 LOAD_CONST              23 ('CREATE INDEX IF NOT EXISTS idx_audit_timestamp ON security_audit_log(timestamp)')
+            290 CALL_METHOD              1
+            292 POP_TOP
+
+247         294 LOAD_FAST                1 (conn)
+            296 LOAD_METHOD              6 (commit)
+            298 CALL_METHOD              0
+            300 POP_TOP
+            302 POP_BLOCK
+
+ 87         304 LOAD_CONST              24 (None)
+            306 DUP_TOP
+            308 DUP_TOP
+            310 CALL_FUNCTION            3
+            312 POP_TOP
+            314 JUMP_FORWARD             8 (to 332)
+        >>  316 WITH_EXCEPT_START
+            318 POP_JUMP_IF_TRUE       161 (to 322)
+            320 RERAISE                  1
+        >>  322 POP_TOP
+            324 POP_TOP
+            326 POP_TOP
+            328 POP_EXCEPT
+            330 POP_TOP
+
+249     >>  332 LOAD_GLOBAL              3 (print)

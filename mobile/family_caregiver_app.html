@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CancerCare AI - Family Caregiver System</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #3b82f6;
+            --accent: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --light: #f9fafb;
+            --dark: #111827;
+            --border: #e5e7eb;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .mobile-container {
+            width: 100%;
+            max-width: 450px;
+            height: 850px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .screen {
+            display: none;
+            padding: 20px;
+            height: 100%;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--border);
+        }
+        
+        .nav-item.active {
+            color: var(--secondary);
+        }
+        
+        .nav-item i {
+            font-size: 1.2em;
+        }
+        
+        .nav-item span {
+            font-size: 0.8em;
+        }
+        
+        .app-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .user-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .user-avatar.active {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        .user-dropdown {
+            flex: 1;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            font-size: 1em;
+        }
+        
+        .welcome-text h2 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        
+        .welcome-text p {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+        
+        .caregiver-list {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .caregiver-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .caregiver-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .caregiver-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .caregiver-info {
+            flex: 1;
+        }
+        
+        .caregiver-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+        
+        .caregiver-role {
+            font-size: 0.8em;
+            color: var(--border);
+        }
+        
+        .caregiver-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+        
+        .photo-upload-area {
+            background: var(--light);
+            border: 2px dashed var(--border);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .photo-upload-area:hover {
+            border-color: var(--secondary);
+            background: #f0f9ff;
+        }
+        
+        .doodle-canvas {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .canvas-tools {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .tool-btn {
+            padding: 10px 15px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .tool-btn:hover {
+            border-color: var(--secondary);
+            background: #f0f9ff;
+        }
+        
+        .tool-btn.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        .color-picker {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-option.active {
+            border-color: var(--dark);
+        }
+        
+        .reminder-card {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .reminder-time {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+        
+        .reminder-title {
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .reminder-assignees {
+            font-size: 0.8em;
+            color: var(--border);
+        }
+        
+        .language-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .lang-option {
+            padding: 8px 15px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+        
+        .lang-option:hover {
+            border-color: var(--secondary);
+        }
+        
+        .lang-option.active {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .screen-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .tablet-optimized {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 768px) {
+            .mobile-container {
+                max-width: 800px;
+                height: 600px;
+            }
+            
+            .quick-actions {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container tablet-optimized">
+        <!-- Family Dashboard Screen -->
+        <div class="screen active" id="familyDashboard">
+            <div class="app-header">
+                <div class="user-selector">
+                    <div class="user-avatar active" onclick="switchUser('patient')">JD</div>
+                    <select class="user-dropdown" onchange="switchUser(this.value)">
+                        <option value="patient">John Doe (Patient)</option>
+                        <option value="caregiver1">Sarah Doe (Wife)</option>
+                        <option value="caregiver2">Mike Doe (Son)</option>
+                        <option value="caregiver3">Lisa Doe (Daughter)</option>
+                        <option value="caregiver4">Dr. Smith (Doctor)</option>
+                    </select>
+                </div>
+                <div class="welcome-text">
+                    <h2>Welcome to Family Care</h2>
+                    <p>Managing health together as a family</p>
+                </div>
+            </div>
+            
+            <div class="caregiver-list">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Active Caregivers</h3>
+                <div class="caregiver-item" onclick="selectCaregiver('sarah')">
+                    <div class="caregiver-avatar">SD</div>
+                    <div class="caregiver-info">
+                        <div class="caregiver-name">Sarah Doe</div>
+                        <div class="caregiver-role">Primary Caregiver • Wife</div>
+                    </div>
+                    <div class="caregiver-status"></div>
+                </div>
+                <div class="caregiver-item" onclick="selectCaregiver('mike')">
+                    <div class="caregiver-avatar">MD</div>
+                    <div class="caregiver-info">
+                        <div class="caregiver-name">Mike Doe</div>
+                        <div class="caregiver-role">Son • Medication Manager</div>
+                    </div>
+                    <div class="caregiver-status"></div>
+                </div>
+                <div class="caregiver-item" onclick="selectCaregiver('lisa')">
+                    <div class="caregiver-avatar">LD</div>
+                    <div class="caregiver-info">
+                        <div class="caregiver-name">Lisa Doe</div>
+                        <div class="caregiver-role">Daughter • Appointment Scheduler</div>
+                    </div>
+                    <div class="caregiver-status"></div>
+                </div>
+            </div>
+            
+            <div style="padding-bottom: 80px;">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Recent Family Activity</h3>
+                <div class="reminder-card">
+                    <div class="reminder-time">Today, 2:00 PM</div>
+                    <div class="reminder-title">Medication Reminder - Chemotherapy</div>
+                    <div class="reminder-assignees">Assigned to: Mike Doe</div>
+                </div>
+                <div class="reminder-card">
+                    <div class="reminder-time">Tomorrow, 10:00 AM</div>
+                    <div class="reminder-title">Doctor Appointment - Oncology</div>
+                    <div class="reminder-assignees">Assigned to: Lisa Doe</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Photo & Doodle Screen -->
+        <div class="screen" id="photoDoodleScreen">
+            <h2 class="screen-title">Photo Upload & Doodle</h2>
+            
+            <div class="photo-upload-area" onclick="document.getElementById('fileInput').click()">
+                <i class="fas fa-camera" style="font-size: 3em; color: var(--secondary); margin-bottom: 15px;"></i>
+                <h3>Upload Medical Image</h3>
+                <p>Take photo or select from gallery</p>
+                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            </div>
+            
+            <div class="language-selector">
+                <div class="lang-option active" onclick="selectLanguage(this, 'en')">English</div>
+                <div class="lang-option" onclick="selectLanguage(this, 'es')">Español</div>
+                <div class="lang-option" onclick="selectLanguage(this, 'fr')">Français</div>
+                <div class="lang-option" onclick="selectLanguage(this, 'hi')">हिन्दी</div>
+                <div class="lang-option" onclick="selectLanguage(this, 'zh')">中文</div>
+                <div class="lang-option" onclick="selectLanguage(this, 'ar')">العربية</div>
+            </div>
+            
+            <div class="doodle-canvas">
+                <canvas id="doodleCanvas" width="400" height="300" style="width: 100%; border-radius: 15px;"></canvas>
+            </div>
+            
+            <div class="canvas-tools">
+                <div class="tool-btn active" onclick="selectTool(this, 'pen')">
+                    <i class="fas fa-pen"></i> Pen
+                </div>
+                <div class="tool-btn" onclick="selectTool(this, 'eraser')">
+                    <i class="fas fa-eraser"></i> Eraser
+                </div>
+                <div class="tool-btn" onclick="clearCanvas()">
+                    <i class="fas fa-trash"></i> Clear
+                </div>
+                <div class="tool-btn" onclick="saveDoodle()">
+                    <i class="fas fa-save"></i> Save
+                </div>
+            </div>
+            
+            <div class="canvas-tools">
+                <div class="color-picker">
+                    <div class="color-option active" style="background: black;" onclick="selectColor(this, 'black')"></div>
+                    <div class="color-option" style="background: red;" onclick="selectColor(this, 'red')"></div>
+                    <div class="color-option" style="background: blue;" onclick="selectColor(this, 'blue')"></div>
+                    <div class="color-option" style="background: green;" onclick="selectColor(this, 'green')"></div>
+                    <div class="color-option" style="background: orange;" onclick="selectColor(this, 'orange')"></div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Add Notes (Multi-language)</label>
+                <textarea id="doodleNotes" placeholder="Write notes in any language..." rows="3"></textarea>
+            </div>
+            
+            <button class="btn" onclick="savePhotoDoodle()">
+                <i class="fas fa-upload"></i> Save Photo & Notes
+            </button>
+        </div>
+        
+        <!-- Family Reminders Screen -->
+        <div class="screen" id="remindersScreen">
+            <h2 class="screen-title">Family Reminders</h2>
+            
+            <button class="btn" style="background: var(--accent);">
+                <i class="fas fa-plus"></i> Create Family Reminder
+            </button>
+            
+            <div style="margin-top: 20px; padding-bottom: 80px;">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Today's Reminders</h3>
+                
+                <div class="reminder-card">
+                    <div class="reminder-time">8:00 AM</div>
+                    <div class="reminder-title">Morning Medication</div>
+                    <div class="reminder-assignees">
+                        <i class="fas fa-users"></i> All Family Members
+                    </div>
+                </div>
+                
+                <div class="reminder-card">
+                    <div class="reminder-time">12:00 PM</div>
+                    <div class="reminder-title">Lunch & Nutrition Check</div>
+                    <div class="reminder-assignees">
+                        <i class="fas fa-user"></i> Sarah Doe
+                    </div>
+                </div>
+                
+                <div class="reminder-card">
+                    <div class="reminder-time">2:00 PM</div>
+                    <div class="reminder-title">Chemotherapy Session</div>
+                    <div class="reminder-assignees">
+                        <i class="fas fa-user"></i> Mike Doe
+                    </div>
+                </div>
+                
+                <div class="reminder-card">
+                    <div class="reminder-time">6:00 PM</div>
+                    <div class="reminder-title">Evening Walk</div>
+                    <div class="reminder-assignees">
+                        <i class="fas fa-users"></i> Available Family Member
+                    </div>
+                </div>
+                
+                <div class="reminder-card">
+                    <div class="reminder-time">9:00 PM</div>
+                    <div class="reminder-title">Bedtime Medication</div>
+                    <div class="reminder-assignees">
+                        <i class="fas fa-user"></i> Lisa Doe
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings Screen -->
+        <div class="screen" id="settingsScreen">
+            <h2 class="screen-title">Family Settings</h2>
+            
+            <div style="padding-bottom: 80px;">
+                <h3 style="margin-bottom: 15px; color: var(--dark);">Manage Family Members</h3>
+                
+                <button class="btn" style="background: var(--accent);">
+                    <i class="fas fa-user-plus"></i> Add Family Member
+                </button>
+                
+                <div style="margin-top: 20px;">
+                    <div class="caregiver-item">
+                        <div class="caregiver-avatar">JD</div>
+                        <div class="caregiver-info">
+                            <div class="caregiver-name">John Doe (Patient)</div>
+                            <div class="caregiver-role">Full Access</div>
+                        </div>
+                        <i class="fas fa-cog" style="color: var(--border);"></i>
+                    </div>
+                    
+                    <div class="caregiver-item">
+                        <div class="caregiver-avatar">SD</div>
+                        <div class="caregiver-info">
+                            <div class="caregiver-name">Sarah Doe</div>
+                            <div class="caregiver-role">Primary Caregiver</div>
+                        </div>
+                        <i class="fas fa-cog" style="color: var(--border);"></i>
+                    </div>
+                    
+                    <div class="caregiver-item">
+                        <div class="caregiver-avatar">MD</div>
+                        <div class="caregiver-info">
+                            <div class="caregiver-name">Mike Doe</div>
+                            <div class="caregiver-role">Medication Manager</div>
+                        </div>
+                        <i class="fas fa-cog" style="color: var(--border);"></i>
+                    </div>
+                </div>
+                
+                <h3 style="margin-bottom: 15px; color: var(--dark); margin-top: 30px;">Tablet Mode</h3>
+                <div style="background: var(--light); padding: 15px; border-radius: 15px;">
+                    <label style="display: flex; align-items: center; gap: 10px;">
+                        <input type="checkbox" checked> 
+                        <span>Optimize for Tablet Interface</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" onclick="showScreen('familyDashboard')">
+                <i class="fas fa-home"></i>
+                <span>Family</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('photoDoodleScreen')">
+                <i class="fas fa-camera"></i>
+                <span>Photo</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('remindersScreen')">
+                <i class="fas fa-bell"></i>
+                <span>Reminders</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('settingsScreen')">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentUser = 'patient';
+        let currentTool = 'pen';
+        let currentColor = 'black';
+        let isDrawing = false;
+        let canvas, ctx;
+        
+        // Initialize canvas
+        window.onload = function() {
+            canvas = document.getElementById('doodleCanvas');
+            if (canvas) {
+                ctx = canvas.getContext('2d');
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.lineWidth = 2;
+                
+                canvas.addEventListener('mousedown', startDrawing);
+                canvas.addEventListener('mousemove', draw);
+                canvas.addEventListener('mouseup', stopDrawing);
+                canvas.addEventListener('mouseout', stopDrawing);
+                
+                // Touch events for mobile
+                canvas.addEventListener('touchstart', handleTouch);
+                canvas.addEventListener('touchmove', handleTouch);
+                canvas.addEventListener('touchend', stopDrawing);
+            }
+        };
+        
+        // Screen navigation
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const screenMap = {
+                'familyDashboard': 0,
+                'photoDoodleScreen': 1,
+                'remindersScreen': 2,
+                'settingsScreen': 3
+            };
+            
+            if (screenMap[screenId] !== undefined) {
+                document.querySelectorAll('.nav-item')[screenMap[screenId]].classList.add('active');
+            }
+        }
+        
+        // User switching
+        function switchUser(user) {
+            currentUser = user;
+            document.querySelectorAll('.user-avatar').forEach(avatar => {
+                avatar.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update welcome message
+            const names = {
+                'patient': 'John',
+                'caregiver1': 'Sarah',
+                'caregiver2': 'Mike',
+                'caregiver3': 'Lisa'
+            };
+            
+            alert(`Switched to ${names[user] || 'User'}'s view`);
+        }
+        
+        // Caregiver selection
+        function selectCaregiver(caregiver) {
+            alert(`Opening ${caregiver}'s management panel`);
+        }
+        
+        // Language selection
+        function selectLanguage(element, lang) {
+            document.querySelectorAll('.lang-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            element.classList.add('active');
+            console.log('Language selected:', lang);
+        }
+        
+        // Drawing functions
+        function startDrawing(e) {
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            ctx.strokeStyle = currentTool === 'eraser' ? '#FFFFFF' : currentColor;
+            ctx.lineWidth = currentTool === 'eraser' ? 10 : 2;
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        function handleTouch(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent(e.type === 'touchstart' ? 'mousedown' : 
+                                         e.type === 'touchmove' ? 'mousemove' : 'mouseup', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+        
+        function selectTool(element, tool) {
+            currentTool = tool;
+            document.querySelectorAll('.tool-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+        
+        function selectColor(element, color) {
+            currentColor = color;
+            document.querySelectorAll('.color-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+        
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        function saveDoodle() {
+            const dataURL = canvas.toDataURL();
+            console.log('Doodle saved:', dataURL);
+            alert('Doodle saved successfully!');
+        }
+        
+        function savePhotoDoodle() {
+            const notes = document.getElementById('doodleNotes').value;
+            const doodleData = canvas.toDataURL();
+            
+            console.log('Saving photo and notes:', { notes, doodleData });
+            alert('Photo and notes saved successfully!');
+        }
+        
+        // File upload handler
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                console.log('File uploaded:', file.name);
+                alert('Image uploaded: ' + file.name);
+            }
+        });
+    </script>
+</body>
+</html>

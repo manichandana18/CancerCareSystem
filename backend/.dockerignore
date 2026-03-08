@@ -1,0 +1,44 @@
+# Virtual environments
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Test files
+test_*.py
+*_test.py
+debug_*.py
+bug_fix_*.py
+fix_*.py
+
+# Datasets (not needed in container)
+organ_dataset/
+blood_dataset/
+blood_dataset_real/
+dataset/
+lung_train/
+lung_val/
+
+# Documentation (not needed in container)
+*.md
+*.txt
+
+# Development/debugging scripts
+*.html
+*_demo.py
+*_guide.py
+
+# IDE
+.vscode/
+.idea/
+
+# Git
+.git
+.gitignore
+
+# OS
+.DS_Store
+Thumbs.db

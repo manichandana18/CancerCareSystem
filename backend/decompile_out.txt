@@ -1,0 +1,270 @@
+=== <module> ===
+  varnames: ()
+  names: ('__doc__', 'sys', 'pathlib', 'Path', 'sqlite3', 'hashlib', 'secrets', 'json', 'datetime', 'timedelta', 'cryptography.fernet', 'Fernet', 'cryptography.hazmat.primitives', 'hashes', 'cryptography.hazmat.primitives.kdf.pbkdf2', 'PBKDF2HMAC', 'base64', 'os', 'path', 'append', 'str', '__file__', 'parent', 'SecureDatabase', 'initialize_secure_system', '__name__', 'secure_db')
+  STR: '\nSecure Database Integration for CancerCare AI\nHIPAA-compliant database with encryption and security\n'
+  NUM: 0
+  STR: 'SecureDatabase'
+  STR: 'initialize_secure_system'
+  STR: '__main__'
+  === SecureDatabase ===
+    varnames: ()
+    names: ('__name__', '__module__', '__qualname__', '__doc__', '__init__', '_generate_encryption_key', '_encrypt_data', '_decrypt_data', '_hash_password', '_verify_password', '_get_connection', '_initialize_database', 'create_user', 'authenticate_user', 'create_session', 'verify_session', 'create_otp', 'verify_otp', '_log_security_event', 'get_user_info', 'save_cancer_detection', 'get_security_report')
+    STR: 'SecureDatabase'
+    STR: 'HIPAA-compliant secure database'
+    STR: 'cancercare_secure.db'
+    STR: 'SecureDatabase.__init__'
+    STR: 'SecureDatabase._generate_encryption_key'
+    STR: 'SecureDatabase._encrypt_data'
+    STR: 'SecureDatabase._decrypt_data'
+    STR: 'SecureDatabase._hash_password'
+    STR: 'SecureDatabase._verify_password'
+    STR: 'SecureDatabase._get_connection'
+    STR: 'SecureDatabase._initialize_database'
+    STR: 'standard'
+    STR: 'SecureDatabase.create_user'
+    STR: 'SecureDatabase.authenticate_user'
+    STR: 'SecureDatabase.create_session'
+    STR: 'SecureDatabase.verify_session'
+    STR: 'SecureDatabase.create_otp'
+    STR: 'SecureDatabase.verify_otp'
+    STR: 'low'
+    STR: 'SecureDatabase._log_security_event'
+    STR: 'SecureDatabase.get_user_info'
+    STR: 'SecureDatabase.save_cancer_detection'
+    STR: 'SecureDatabase.get_security_report'
+    === __init__ ===
+      varnames: ('self', 'db_path')
+      names: ('db_path', '_generate_encryption_key', 'encryption_key', 'Fernet', 'cipher_suite', '_initialize_database')
+    === _generate_encryption_key ===
+      varnames: ('self', 'password', 'salt', 'kdf', 'key')
+      names: ('PBKDF2HMAC', 'hashes', 'SHA256', 'base64', 'urlsafe_b64encode', 'derive')
+      STR: 'Generate encryption key from master password'
+      BYTES: b'CancerCare_Secure_Master_Key_2024'
+      BYTES: b'CancerCare_Salt_Secure_2024'
+      NUM: 32
+      NUM: 100000
+    === _encrypt_data ===
+      varnames: ('self', 'data', 'encrypted')
+      names: ('isinstance', 'str', 'encode', 'cipher_suite', 'encrypt', 'base64', 'urlsafe_b64encode', 'decode')
+      STR: 'Encrypt sensitive data'
+    === _decrypt_data ===
+      varnames: ('self', 'encrypted_data', 'decrypted')
+      names: ('isinstance', 'str', 'base64', 'urlsafe_b64decode', 'encode', 'cipher_suite', 'decrypt', 'decode')
+      STR: 'Decrypt sensitive data'
+    === _hash_password ===
+      varnames: ('self', 'password', 'salt', 'password_hash')
+      names: ('secrets', 'token_hex', 'hashlib', 'pbkdf2_hmac', 'encode', 'hex')
+      STR: 'Hash password with salt'
+      NUM: 32
+      STR: 'sha256'
+      STR: 'utf-8'
+      NUM: 100000
+    === _verify_password ===
+      varnames: ('self', 'password', 'stored_hash', 'salt', 'stored_password_hash', 'password_hash')
+      names: ('hashlib', 'pbkdf2_hmac', 'encode', 'hex')
+      STR: 'Verify password against stored hash'
+      NUM: 64
+      STR: 'sha256'
+      STR: 'utf-8'
+      NUM: 100000
+    === _get_connection ===
+      varnames: ('self',)
+      names: ('sqlite3', 'connect', 'db_path')
+      STR: 'Get a thread-safe connection with reasonable timeout'
+      NUM: False
+      NUM: 20
+    === _initialize_database ===
+      varnames: ('self', 'conn', 'cursor')
+      names: ('_get_connection', 'cursor', 'execute', 'print', 'sqlite3', 'OperationalError', 'commit')
+      STR: 'Initialize secure database with all tables'
+      STR: 'PRAGMA foreign_keys = ON'
+      STR: 'PRAGMA secure_delete = ON'
+      STR: 'DB: PRAGMAs set'
+      STR: '\n                CREATE TABLE IF NOT EXISTS users (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    user_id TEXT UNIQUE NOT NULL,\n                    email_encrypted TEXT NOT NULL,\n                    phone_encrypted TEXT,\n                    name_encrypted TEXT NOT NULL,\n                    password_hash TEXT NOT NULL,\n                    age INTEGER, -- Added for accessibility scaling\n                    gender TEXT, -- Added for profile customization\n            '
+      STR: 'ALTER TABLE users ADD COLUMN age INTEGER'
+      STR: 'DB: Migrated users table: Added age column'
+      STR: 'ALTER TABLE users ADD COLUMN gender TEXT'
+      STR: 'DB: Migrated users table: Added gender column'
+      STR: '\n                CREATE TABLE IF NOT EXISTS user_sessions (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    session_token TEXT UNIQUE NOT NULL,\n                    user_id TEXT NOT NULL,\n                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    expires_at TIMESTAMP NOT NULL,\n                    is_active BOOLEAN DEFAULT 1,\n                    ip_address TEXT,\n                    user_agent TEXT,\n                    FOREIGN KEY (user_id)'
+      STR: '\n                CREATE TABLE IF NOT EXISTS otp_verification (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    contact_encrypted TEXT NOT NULL,\n                    otp_hash TEXT NOT NULL,\n                    method TEXT NOT NULL,\n                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    expires_at TIMESTAMP NOT NULL,\n                    is_used BOOLEAN DEFAULT 0,\n                    attempts INTEGER DEFAULT 0,\n                    user_i'
+      STR: '\n                CREATE TABLE IF NOT EXISTS medical_records (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    patient_id TEXT NOT NULL,\n                    record_type TEXT NOT NULL,\n                    data_encrypted TEXT NOT NULL,\n                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    doctor_id TEXT,\n                    is_confidential BOOLEAN DEFAULT 1,\n          '
+      STR: '\n                CREATE TABLE IF NOT EXISTS cancer_detections (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    patient_id TEXT NOT NULL,\n                    image_path TEXT,\n                    organ_detected TEXT,\n                    diagnosis TEXT,\n                    confidence_score REAL,\n                    ai_model_version TEXT,\n                    detection_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    doctor_verified BOOLEAN DEFAULT 0,\n     '
+      STR: '\n                CREATE TABLE IF NOT EXISTS mental_health_records (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    patient_id TEXT NOT NULL,\n                    assessment_type TEXT,\n                    data_encrypted TEXT NOT NULL,\n                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    therapist_id TEXT,\n                    is_active BOOLEAN DEFAULT 1,\n            '
+      STR: "\n                CREATE TABLE IF NOT EXISTS security_audit_log (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    user_id TEXT,\n                    action TEXT NOT NULL,\n                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    ip_address TEXT,\n                    user_agent TEXT,\n                    success BOOLEAN,\n                    details TEXT,\n                    risk_level TEXT DEFAULT 'low'\n                )\n            "
+      STR: '\n                CREATE TABLE IF NOT EXISTS system_config (\n                    id INTEGER PRIMARY KEY AUTOINCREMENT,\n                    config_key TEXT UNIQUE NOT NULL,\n                    config_value_encrypted TEXT,\n                    description TEXT,\n                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n                    updated_by TEXT\n                )\n            '
+      STR: 'CREATE INDEX IF NOT EXISTS idx_users_email ON users(email_encrypted)'
+      STR: 'CREATE INDEX IF NOT EXISTS idx_sessions_token ON user_sessions(session_token)'
+      STR: 'CREATE INDEX IF NOT EXISTS idx_sessions_user ON user_sessions(user_id)'
+      STR: 'CREATE INDEX IF NOT EXISTS idx_otp_contact ON otp_verification(contact_encrypted)'
+      STR: 'CREATE INDEX IF NOT EXISTS idx_medical_patient ON medical_records(patient_id)'
+      STR: 'CREATE INDEX IF NOT EXISTS idx_detection_patient ON cancer_detections(patient_id)'
+      STR: 'CREATE INDEX IF NOT EXISTS idx_mental_patient ON mental_health_records(patient_id)'
+      STR: 'CREATE INDEX IF NOT EXISTS idx_audit_timestamp ON security_audit_log(timestamp)'
+      STR: '🔒 Secure database initialized successfully with WAL mode'
+    === create_user ===
+      varnames: ('self', 'name', 'email', 'phone', 'password', 'age', 'gender', 'security_level', 'conn', 'cursor', 'user_id', 'email_encrypted', 'phone_encrypted', 'name_encrypted', 'password_hash', 'e')
+      names: ('_get_connection', 'cursor', 'secrets', 'token_urlsafe', '_encrypt_data', '_hash_password', 'execute', '_log_security_event', 'commit', 'print', 'Exception', 'rollback')
+      STR: 'Create new user with encrypted data'
+      STR: 'user_'
+      NUM: 16
+      STR: '\n                    INSERT INTO users \n                    (user_id, email_encrypted, phone_encrypted, name_encrypted, \n                     password_hash, age, gender, security_level)\n                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)\n                '
+      STR: 'USER_CREATED'
+      NUM: True
+      STR: 'User created with security level: '
+      STR: '✅ User created successfully: '
+      STR: '❌ Error creating user: '
+    === authenticate_user ===
+      varnames: ('self', 'email', 'password', 'ip_address', 'user_agent', 'conn', 'cursor', 'users', 'authenticated_user', 'user', 'stored_email', 'user_id', '_', 'password_hash', 'is_active', 'account_locked', 'login_attempts', 'e')
+      names: ('_get_connection', 'cursor', 'execute', 'fetchall', '_decrypt_data', 'lower', '_log_security_event', '_verify_password', 'commit', 'Exception', 'print')
+      STR: 'Authenticate user with security checks'
+      STR: 'SELECT user_id, email_encrypted, password_hash, is_active, account_locked, login_attempts FROM users'
+      NUM: 1
+      STR: 'LOGIN_FAILED'
+      NUM: False
+      STR: 'Email not found: '
+      STR: 'Account locked'
+      STR: 'Account inactive'
+      STR: 'UPDATE users SET login_attempts = 0, last_login = CURRENT_TIMESTAMP WHERE user_id = ?'
+      STR: 'LOGIN_SUCCESS'
+      NUM: True
+      STR: 'User authenticated successfully'
+      STR: 'UPDATE users SET login_attempts = ? WHERE user_id = ?'
+      NUM: 5
+      STR: 'UPDATE users SET account_locked = 1 WHERE user_id = ?'
+      STR: 'ACCOUNT_LOCKED'
+      STR: 'Account locked due to multiple failed attempts'
+      STR: 'Invalid password. Attempt '
+      STR: '/5'
+      STR: '❌ Authentication error: '
+    === create_session ===
+      varnames: ('self', 'user_id', 'ip_address', 'user_agent', 'conn', 'cursor', 'session_token', 'expires_at', 'e')
+      names: ('_get_connection', 'cursor', 'secrets', 'token_urlsafe', 'datetime', 'now', 'timedelta', 'execute', '_log_security_event', 'commit', 'print', 'Exception', 'rollback')
+      STR: 'Create secure user session'
+      NUM: 32
+      NUM: 24
+      STR: '\n                    INSERT INTO user_sessions \n                    (session_token, user_id, expires_at, ip_address, user_agent)\n                    VALUES (?, ?, ?, ?, ?)\n                '
+      STR: 'SESSION_CREATED'
+      NUM: True
+      STR: 'Session created, expires: '
+      STR: '✅ Session created for user: '
+      STR: '❌ Error creating session: '
+    === verify_session ===
+      varnames: ('self', 'session_token', 'ip_address', 'user_agent', 'conn', 'cursor', 'session', 'user_id', 'expires_at', 'is_active', 'e')
+      names: ('_get_connection', 'cursor', 'execute', 'fetchone', 'datetime', 'now', 'fromisoformat', 'commit', '_log_security_event', 'Exception', 'print')
+      STR: 'Verify user session'
+      STR: '\n                    SELECT user_id, expires_at, is_active \n                    FROM user_sessions \n                    WHERE session_token = ? AND is_active = 1\n                '
+      STR: 'UPDATE user_sessions SET is_active = 0 WHERE session_token = ?'
+      STR: 'SESSION_VERIFIED'
+      NUM: True
+      STR: 'Session verified successfully'
+      STR: '❌ Session verification error: '
+    === create_otp ===
+      varnames: ('self', 'contact', 'method', 'user_id', 'conn', 'cursor', 'random', 'otp', 'otp_hash', 'expires_at', 'contact_encrypted', 'e')
+      names: ('_get_connection', 'cursor', 'random', 'join', 'choices', 'hashlib', 'sha256', 'encode', 'hexdigest', 'datetime', 'now', 'timedelta', '_encrypt_data', 'execute', '_log_security_event', 'commit', 'print', 'Exception', 'rollback')
+      STR: 'Create OTP for verification'
+      NUM: 0
+      STR: ''
+      STR: '0123456789'
+      NUM: 6
+      NUM: 5
+      STR: '\n                    INSERT INTO otp_verification \n                    (contact_encrypted, otp_hash, method, expires_at, user_id)\n                    VALUES (?, ?, ?, ?, ?)\n                '
+      STR: 'OTP_CREATED'
+      NUM: True
+      STR: 'OTP created for '
+      STR: ': '
+      STR: '✅ OTP created: '
+      STR: ' for '
+      STR: ' via '
+      STR: '❌ Error creating OTP: '
+    === verify_otp ===
+      varnames: ('self', 'contact', 'otp', 'method', 'conn', 'cursor', 'otp_records', 'matching_record', 'record', 'record_id', 'contact_encrypted', 'otp_hash', 'expires_at', 'is_used', 'attempts', 'user_id', 'stored_contact', '_', 'input_otp_hash', 'e')
+      names: ('_get_connection', 'cursor', 'execute', 'fetchall', '_decrypt_data', 'print', 'datetime', 'now', 'fromisoformat', 'commit', 'hashlib', 'sha256', 'encode', 'hexdigest', '_log_security_event', 'Exception')
+      STR: 'Verify OTP'
+      STR: '\n                    SELECT id, contact_encrypted, otp_hash, expires_at, is_used, attempts, user_id \n                    FROM otp_verification \n                    WHERE method = ? AND is_used = 0\n                    ORDER BY created_at DESC\n                '
+      STR: '❌ No matching OTP record found for '
+      NUM: False
+      STR: 'UPDATE otp_verification SET is_used = 1 WHERE id = ?'
+      STR: '❌ OTP expired'
+      NUM: 3
+      STR: '❌ Too many OTP attempts'
+      STR: 'OTP_VERIFIED'
+      NUM: True
+      STR: 'OTP verified successfully for '
+      STR: '✅ OTP verified successfully'
+      STR: 'UPDATE otp_verification SET attempts = attempts + 1 WHERE id = ?'
+      STR: '❌ Invalid OTP. Attempt '
+      NUM: 1
+      STR: '/3'
+      STR: '❌ OTP verification error: '
+    === _log_security_event ===
+      varnames: ('self', 'user_id', 'action', 'success', 'details', 'ip_address', 'user_agent', 'risk_level', 'conn', 'cursor', 'new_conn', 'e')
+      names: ('cursor', 'execute', '_get_connection', 'commit', 'Exception', 'print')
+      STR: 'Log security events. If conn is provided, uses it, otherwise opens a new one.'
+      STR: '\n                    INSERT INTO security_audit_log \n                    (user_id, action, success, details, ip_address, user_agent, risk_level)\n                    VALUES (?, ?, ?, ?, ?, ?, ?)\n                '
+      STR: '\n                        INSERT INTO security_audit_log \n                        (user_id, action, success, details, ip_address, user_agent, risk_level)\n                        VALUES (?, ?, ?, ?, ?, ?, ?)\n                    '
+      STR: '❌ Error logging security event: '
+    === get_user_info ===
+      varnames: ('self', 'user_id', 'conn', 'cursor', 'user', 'email', 'phone', 'name', 'created_at', 'last_login', 'security_level', 'is_active', 'age', 'gender', 'e')
+      names: ('_get_connection', 'cursor', 'execute', 'fetchone', '_decrypt_data', 'Exception', 'print')
+      STR: 'Get decrypted user information'
+      STR: '\n                    SELECT email_encrypted, phone_encrypted, name_encrypted, \n                           created_at, last_login, security_level, is_active, age, gender\n                    FROM users WHERE user_id = ?\n                '
+      NUM: 0
+      NUM: 1
+      NUM: 2
+      NUM: 3
+      NUM: 4
+      NUM: 5
+      NUM: 6
+      NUM: 7
+      NUM: 8
+      STR: '❌ Error getting user info: '
+    === save_cancer_detection ===
+      varnames: ('self', 'patient_id', 'organ', 'diagnosis', 'confidence', 'image_path', 'notes', 'conn', 'cursor', 'notes_encrypted', 'e')
+      names: ('_get_connection', 'cursor', '_encrypt_data', 'execute', '_log_security_event', 'commit', 'print', 'Exception', 'rollback')
+      STR: 'Save cancer detection results'
+      STR: '\n                    INSERT INTO cancer_detections \n                    (patient_id, image_path, organ_detected, diagnosis, confidence_score, notes_encrypted)\n                    VALUES (?, ?, ?, ?, ?, ?)\n                '
+      STR: 'CANCER_DETECTION_SAVED'
+      NUM: True
+      STR: 'Cancer detection saved: '
+      STR: ' - '
+      STR: '✅ Cancer detection saved for patient: '
+      STR: '❌ Error saving cancer detection: '
+      NUM: False
+    === get_security_report ===
+      varnames: ('self', 'conn', 'cursor', 'active_users', 'locked_accounts', 'active_sessions', 'recent_events', 'failed_logins', 'e')
+      names: ('_get_connection', 'cursor', 'execute', 'fetchone', 'fetchall', 'dict', 'Exception', 'print')
+      STR: 'Generate security report'
+      STR: 'SELECT COUNT(*) FROM users WHERE is_active = 1'
+      NUM: 0
+      STR: 'SELECT COUNT(*) FROM users WHERE account_locked = 1'
+      STR: 'SELECT COUNT(*) FROM user_sessions WHERE is_active = 1 AND expires_at > CURRENT_TIMESTAMP'
+      STR: "\n                    SELECT action, COUNT(*) \n                    FROM security_audit_log \n                    WHERE timestamp > datetime('now', '-1 day')\n                    GROUP BY action\n                "
+      STR: "\n                    SELECT COUNT(*) \n                    FROM security_audit_log \n                    WHERE action = 'LOGIN_FAILED' AND timestamp > datetime('now', '-1 day')\n                "
+      NUM: True
+      STR: '❌ Error generating security report: '
+  === initialize_secure_system ===
+    varnames: ('db', 'test_user_id', 'auth_result', 'session_token', 'verify_result', 'report', 'key', 'value')
+    names: ('print', 'SecureDatabase', 'create_user', 'authenticate_user', 'create_session', 'verify_session', 'get_security_report', 'items', 'replace', 'title')
+    STR: 'Initialize the secure database system'
+    STR: '🔒 INITIALIZING SECURE DATABASE SYSTEM'
+    STR: '============================================================'
+    STR: 'Test User'
+    STR: 'test@cancercare.ai'
+    STR: '+1234567890'
+    STR: 'SecurePassword123!'
+    STR: 'high'
+    STR: '✅ Test user created: '
+    STR: '✅ Authentication successful: '
+    STR: 'RES: Session created: '
+    STR: 'RES: Session verified: '
+    STR: 'ERR: Session verification failed'
+    STR: 'ERR: Session creation failed'
+    STR: 'ERR: Authentication failed'
+    STR: 'ERR: Test user creation failed'
+    STR: '\nREPORT: SECURITY REPORT:'
+    STR: '========================================'
+    STR: '  '
+    STR: '_'
+    STR: ' '
+    STR: ': '
+    STR: '\nREADY: SECURE DATABASE SYSTEM READY!'
