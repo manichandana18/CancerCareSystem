@@ -9,12 +9,7 @@ from collections import defaultdict
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from app.routes.predict import router as predict_router
-from app.routes.auto_predict_route import router as auto_predict_router
-from app.routes.blood_predict import router as blood_predict_router
-from app.routes.brain_predict import router as brain_predict_router
-from app.routes.skin_predict import router as skin_predict_router
-from app.routes.breast_predict import router as breast_predict_router
+# --- Non-ML routes (always available) ---
 from app.routes.auth import router as auth_router
 from app.routes.otp import router as otp_router
 from app.routes.history import router as history_router
@@ -24,6 +19,25 @@ from app.routes.wig_marketplace import router as wig_marketplace_router
 from app.routes.staging import router as staging_router
 from app.routes.profile import router as profile_router
 from app.routes.medicine_reminders import router as medicine_reminders_router
+
+# --- ML-dependent routes (optional - may fail if TensorFlow/OpenCV not installed) ---
+_ml_routers = []
+_ml_route_modules = [
+    ("app.routes.predict", "predict_router"),
+    ("app.routes.auto_predict_route", "auto_predict_router"),
+    ("app.routes.blood_predict", "blood_predict_router"),
+    ("app.routes.brain_predict", "brain_predict_router"),
+    ("app.routes.skin_predict", "skin_predict_router"),
+    ("app.routes.breast_predict", "breast_predict_router"),
+]
+for mod_name, _label in _ml_route_modules:
+    try:
+        import importlib
+        mod = importlib.import_module(mod_name)
+        _ml_routers.append(mod.router)
+        print(f"[OK] Loaded ML route: {mod_name}")
+    except Exception as e:
+        print(f"[SKIP] ML route {mod_name} unavailable: {e}")
 
 app = FastAPI(
     title="CancerCareSystem API",
@@ -129,12 +143,10 @@ async def security_middleware(request: Request, call_next):
 
 
 # --- Route registration ---
-app.include_router(predict_router)
-app.include_router(auto_predict_router)
-app.include_router(blood_predict_router)
-app.include_router(brain_predict_router)
-app.include_router(skin_predict_router)
-app.include_router(breast_predict_router)
+# ML routes (dynamically loaded)
+for r in _ml_routers:
+    app.include_router(r)
+# Non-ML routes (always available)
 app.include_router(auth_router)
 app.include_router(otp_router)
 app.include_router(history_router)

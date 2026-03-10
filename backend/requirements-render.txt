@@ -1,0 +1,45 @@
+# Lightweight requirements for Render free tier (512MB RAM)
+# Excludes heavy ML libraries (TensorFlow, Keras, OpenCV, etc.)
+# ML prediction routes will gracefully degrade without these
+
+# Web framework
+fastapi==0.124.4
+uvicorn==0.38.0
+python-multipart==0.0.20
+
+# Database & security
+Werkzeug==3.1.4
+pydantic==2.12.5
+pydantic-core==2.41.5
+
+# Auth & crypto
+PyJWT==2.12.0
+bcrypt==4.3.0
+cryptography==45.0.3
+
+# HTTP & networking
+requests==2.32.5
+urllib3==2.6.2
+certifi==2025.11.12
+charset-normalizer==3.4.4
+idna==3.10
+
+# Utilities
+python-dotenv==1.1.0
+python-dateutil==2.10.0
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+Markdown==3.10
+click==8.3.1
+colorama==0.4.6
+typing_extensions==4.15.0
+annotated-types==0.7.0
+anyio==4.12.0
+starlette==0.46.2
+sniffio==1.3.1
+
+# Image processing (lightweight)
+Pillow==11.2.1
+
+# Misc
+setuptools==80.9.0
